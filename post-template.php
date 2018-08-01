@@ -256,7 +256,7 @@ function the_content( $more_link_text = null, $strip_teaser = false) {
 
 	$content = str_replace($from, $to, $content);
 	$content = str_replace($except, $from, $content);
-	$content = str_replace($suffix . $prefix, '', $content);
+	//$content = str_replace($suffix . $prefix, '', $content);
 
 	//$content = str_replace(array('<p></p>', '<p>&nbsp;</p>', '<p> </p>'), '<br>', $content);
 	$content = str_replace('<p></p>', '<br>', $content);
