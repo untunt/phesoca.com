@@ -67,6 +67,21 @@ a.anchor {
 	box-shadow: none;
 }
 
+/* footnote */
+a.pnote {
+	top: -.125em;
+	position: relative;
+	box-shadow: none;
+}
+
+a.pnote sup {
+	top: -.375em;
+}
+
+a.note {
+	box-shadow: none;
+}
+
 /* wavy underline
  * from http://dabblet.com/gist/f6cfd244631c8ca898ef60b100b96386
  */
@@ -79,6 +94,11 @@ a.anchor {
 	background-repeat:repeat-x;
 	background-size: 8px 2px;
 	background-position:0 95%;
+}
+
+sub.not-sunk {
+	font-size: 50%;
+	bottom: 0;
 }
 
 /* some preset colors */
