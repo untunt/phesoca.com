@@ -101,6 +101,48 @@ sub.not-sunk {
 	bottom: 0;
 }
 
+article {
+	font-size: 0.9375em; /*15px*/
+}
+
+article p {
+	margin-bottom: 1.64em;
+}
+
+/* table with horizontal scroll bar */
+.hori-scroll {
+	width: 100%;
+	overflow-x: auto;
+	margin: 0 0 1.64em;
+}
+
+.hori-scroll table {
+	/* previous setting: fixed */
+	table-layout: auto;
+	white-space: nowrap;
+	margin: 0;
+}
+
+table {
+	line-height: 1.4;
+}
+
+table.compact th,
+table.compact td {
+	line-height: 1.3;
+	padding: 0.375em;
+}
+
+table.smaller-text {
+	font-size: 12px;
+	line-height: 16px;
+}
+
+table.smaller-text th,
+table.smaller-text td {
+	padding: 4px;
+}
+
 /* some preset colors */
 .preset-yellow {
 	color: #ffd700; /* Gold */
