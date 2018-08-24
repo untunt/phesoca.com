@@ -117,13 +117,13 @@ article p {
 }
 
 .hori-scroll table {
-	/* previous setting: fixed */
-	table-layout: auto;
 	white-space: nowrap;
 	margin: 0;
 }
 
 table {
+	/* previous setting: fixed */
+	table-layout: auto;
 	line-height: 1.4;
 }
 
