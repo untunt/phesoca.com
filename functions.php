@@ -33,3 +33,12 @@ function replace_empty_p( $content ) {
 	return $content;
 }
 add_filter( 'the_content', 'replace_empty_p' );
+
+function remove_anchors_in_homepage_content( $content ) {
+	if ( !is_home() ) {
+		return $content;
+	}
+	$content = preg_replace('|<a[^>]*href ?= ?"#[^"]*"[^>]*>(((?!/a>).)*)</a>|i', '$1', $content);
+	return $content;
+}
+add_filter( 'the_content', 'remove_anchors_in_homepage_content' );
