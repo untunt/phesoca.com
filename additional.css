@@ -109,6 +109,23 @@ article p {
 	margin-bottom: 1.64em;
 }
 
+/* automatically add space between Chinese characters and Latin alphabets */
+hanla:after {
+	content: " ";
+	display: inline;
+	font-size: 0.9em;
+}
+
+code hanla,
+pre hanla,
+kbd hanla,
+samp hanla,
+ol > hanla,
+ul > hanla,
+tr > hanla {
+    display: none;
+}
+
 /* table with horizontal scroll bar */
 .hori-scroll {
 	width: 100%;

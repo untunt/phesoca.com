@@ -42,3 +42,10 @@ function remove_anchors_in_homepage_content( $content ) {
 	return $content;
 }
 add_filter( 'the_content', 'remove_anchors_in_homepage_content' );
+
+function text_autospace(){
+	// text-autospace.js is downloaded in wp-content/plugins/
+	// source: https://github.com/mastermay/text-autospace.js
+	wp_enqueue_script( 'text-autospace', plugins_url( 'text-autospace.js' ), array( 'jquery' ) );
+}
+add_action( 'wp_enqueue_scripts', 'text_autospace' );
