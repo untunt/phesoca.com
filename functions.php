@@ -10,13 +10,22 @@ add_filter( 'the_content_more_link', 'remove_more_link_scroll' );
 
 function chinese_punctuations( $content ) {
 	$prefix = '<span class="cn">';
+	$prefix_q = '<span class="cn-quot">';
 	$suffix = '</span>';
 
-	$from = array('“', '”', '‘', '’', '…', '—', '·', '·');
+	$from = array('…', '—', '·');
+	$from_q = array('“', '”', '‘', '’', '');
 	$to = $from;
 	foreach ($to as &$punct) {
 		$punct = $prefix . $punct . $suffix;
 	}
+	$to_q = $from_q;
+	foreach ($to_q as &$punct) {
+		$punct = $prefix_q . $punct . $suffix;
+	}
+	
+	$from = array_merge($from, $from_q);
+	$to = array_merge($to, $to_q);
 	$except = $to;
 	foreach ($except as &$punct) {
 		$punct = '\\' . $punct;
