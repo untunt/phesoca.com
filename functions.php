@@ -47,12 +47,13 @@ function remove_anchors_in_homepage_content( $content ) {
 	if ( !is_home() ) {
 		return $content;
 	}
+	$content = preg_replace('|<a[^>]*href ?= ?"#[^"]*"[^>]*(class ?= ?"[^"]*")[^>]*>(((?!/a>).)*)</a>|i', '<span $1>$2</span>', $content); // keep style
 	$content = preg_replace('|<a[^>]*href ?= ?"#[^"]*"[^>]*>(((?!/a>).)*)</a>|i', '$1', $content);
 	return $content;
 }
 add_filter( 'the_content', 'remove_anchors_in_homepage_content' );
 
-function text_autospace(){
+function text_autospace() {
 	// text-autospace.js is downloaded in wp-content/plugins/
 	// source: https://github.com/mastermay/text-autospace.js
 	wp_enqueue_script( 'text-autospace', plugins_url( 'text-autospace.min.js' ), array( 'jquery' ) );

@@ -68,14 +68,17 @@ a.anchor {
 }
 
 /* footnote */
-a.pnote {
+.pnote {
 	top: -.125em;
 	position: relative;
-	box-shadow: none;
 }
 
-a.pnote sup {
+.pnote sup {
 	top: -.375em;
+}
+
+a.pnote {
+	box-shadow: none;
 }
 
 a.note {
