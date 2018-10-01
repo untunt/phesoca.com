@@ -8,6 +8,12 @@ function remove_more_link_scroll( $link ) {
 }
 add_filter( 'the_content_more_link', 'remove_more_link_scroll' );
 
+function prevent_autospace_after_pnote( $content ) {
+	$content = preg_replace('|<a[^>]*class ?= ?"pnote"[^>]*>((?!/a>).)*</a>|i', '$0<span hidden> </span>', $content);
+	return $content;
+}
+add_filter( 'the_content', 'prevent_autospace_after_pnote' );
+
 function chinese_punctuations( $content ) {
 	$prefix = '<span class="cn">';
 	$prefix_q = '<span class="cn-quot">';
