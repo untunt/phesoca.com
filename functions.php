@@ -8,11 +8,19 @@ function remove_more_link_scroll( $link ) {
 }
 add_filter( 'the_content_more_link', 'remove_more_link_scroll' );
 
-function prevent_autospace_after_pnote( $content ) {
-	$content = preg_replace('|<a[^>]*class ?= ?"pnote"[^>]*>((?!/a>).)*</a>|i', '$0<span hidden> </span>', $content);
+function convert_note( $content ) {
+	// with 'p' (in the body)
+	$content = preg_replace('|\^\[([^\[\|\]]*)\|pn([^\[\|\]]*)\]|i', '<a href="#n$2" id="pn$2" class="pnote">$1<span class="sup">*<sup>$2</sup></span></a><span hidden> </span>', $content);
+	$content = preg_replace('|\^\[([^\[\|\]]*)\|pr([^\[\|\]]*)\]|i', '<a href="#r$2" id="pr$2" class="pnote">$1<sup class="sup">[$2]</sup></a>', $content);
+	$content = preg_replace('|\^\[pn([^\[\|\]]*)\]|i', '<a href="#n$1" id="pn$1" class="pnote"><span class="sup">*<sup>$1</sup></span></a><span hidden> </span>', $content);
+	$content = preg_replace('|\^\[pr([^\[\|\]]*)\]|i', '<a href="#r$1" id="pr$1" class="pnote"><sup class="sup">[$1]</sup></a>', $content);
+	
+	// without 'p' (at the end)
+	$content = preg_replace('|\^\[n([^\[\|\]]*)\]|i', '<a href="#pn$1" id="n$1" class="note">*$1</a><span hidden> </span>', $content);
+	$content = preg_replace('|\^\[r([^\[\|\]]*)\]|i', '<a href="#pr$1" id="r$1" class="note">[$1]</a>', $content);
 	return $content;
 }
-add_filter( 'the_content', 'prevent_autospace_after_pnote' );
+add_filter( 'the_content', 'convert_note' );
 
 function chinese_punctuations( $content ) {
 	$prefix = '<span class="cn">';
@@ -53,7 +61,7 @@ function remove_anchors_in_homepage_content( $content ) {
 	if ( !is_home() ) {
 		return $content;
 	}
-	$content = preg_replace('|<a[^>]*href ?= ?"#[^"]*"[^>]*(class ?= ?"[^"]*")[^>]*>(((?!/a>).)*)</a>|i', '<span $1>$2</span>', $content); // keep style
+	$content = preg_replace('|<a[^>]*href ?= ?"#[^"]*"[^>]* (class ?= ?"[^"]*")[^>]*>(((?!/a>).)*)</a>|i', '<span $1>$2</span>', $content); // keep style
 	$content = preg_replace('|<a[^>]*href ?= ?"#[^"]*"[^>]*>(((?!/a>).)*)</a>|i', '$1', $content);
 	return $content;
 }
