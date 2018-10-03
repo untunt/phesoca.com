@@ -62,23 +62,29 @@
 }
 
 /* anchor */
-a.anchor {
+a.anchor,
+a.pnote {
 	color: #1a1a1e;
 	box-shadow: none;
 }
 
 /* footnote */
-.pnote {
+.pnote .sup {
 	top: -.125em;
 	position: relative;
 }
 
-.pnote sup {
+.pnote .sup sup {
 	top: -.375em;
 }
 
-a.pnote {
-	box-shadow: none;
+a.pnote .sup {
+	color: #007acc;
+}
+
+a.pnote:hover,
+a.pnote:hover .sup {
+	color: #686878;
 }
 
 a.note {
@@ -182,6 +188,11 @@ table.smaller-text td {
 
 .preset-red {
 	color: red;
+}
+
+blockquote {
+	font-size: inherit;
+	font-style: inherit;
 }
 
 /* fonts */

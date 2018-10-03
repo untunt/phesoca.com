@@ -10,4 +10,3 @@ Modified files (php, css, etc.) from WordPress's “Twenty Sixteen” theme for 
 |functions.php|wp-content/themes/twentysixteen/functions.php<br>[only supplement at the end of the file]|
 |header.php|wp-content/themes/twentysixteen/header.php|
 |index.php|wp-content/themes/twentysixteen/index.php|
-|style.css|wp-content/themes/twentysixteen/style.css|
