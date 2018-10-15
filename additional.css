@@ -132,7 +132,7 @@ samp hanla,
 ol > hanla,
 ul > hanla,
 tr > hanla {
-    display: none;
+	display: none;
 }
 
 /* table with horizontal scroll bar */
