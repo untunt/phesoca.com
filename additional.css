@@ -131,7 +131,11 @@ kbd hanla,
 samp hanla,
 ol > hanla,
 ul > hanla,
-tr > hanla {
+tr > hanla,
+caption .table-number + hanla,
+figcaption .figure-number + hanla,
+.table-caption .table-number + hanla,
+.figure-caption .figure-number + hanla {
 	display: none;
 }
 
@@ -167,6 +171,33 @@ table.smaller-text {
 table.smaller-text th,
 table.smaller-text td {
 	padding: 4px;
+}
+
+caption,
+.table-caption {
+	text-align: center;
+	margin-bottom: 0.5em;
+}
+
+figcaption,
+.figure-caption {
+	text-align: center;
+	margin-top: 0.25em;
+	margin-bottom: 1.64em;
+}
+
+caption .table-number,
+figcaption .figure-number,
+.table-caption .table-number,
+.figure-caption .figure-number {
+	font-weight: bold;
+}
+
+caption .table-number ~ .table-caption-text,
+figcaption .figure-number ~ .figure-caption-text,
+.table-caption .table-number ~ .table-caption-text,
+.figure-caption .figure-number ~ .figure-caption-text {
+	margin-left: 0.75em;
 }
 
 /* some preset colors */
