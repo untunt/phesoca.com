@@ -14,3 +14,9 @@ Modified files (php, css, etc.) from WordPress's “Twenty Sixteen” theme for 
 ## Features
 
 Uses [text-autospace.js](https://github.com/mastermay/text-autospace.js) (see my [fork](https://github.com/untunt/text-autospace.js)) to automatically add space between East Asian characters and European alphabets.
+
+### Expression for Footnotes and References
+
+`^[footnoted text|pn1]` produces “footnoted text*<sup>1</sup>” with anchor id `pn1` and a link to `#n1`.
+
+`^[n1]` produces “\*1” with anchor id `n1` and a link to `#pn1`.
