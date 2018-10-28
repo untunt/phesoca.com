@@ -13,6 +13,8 @@ Modified files (php, css, etc.) from WordPress's “Twenty Sixteen” theme for 
 
 ## Features
 
+### text-autospace.js
+
 Uses [text-autospace.js](https://github.com/mastermay/text-autospace.js) (see my [fork](https://github.com/untunt/text-autospace.js)) to automatically add space between East Asian characters and European alphabets.
 
 ### Expression for Footnotes and References
