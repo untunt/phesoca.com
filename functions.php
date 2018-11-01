@@ -13,7 +13,7 @@ function convert_note( $content ) {
 	$content = preg_replace('|\^\[([^\[\|\]]*)\|pn([^\[\|\]]*)\]|i', '<a href="#n$2" id="pn$2" class="pnote">$1<span class="sup">*<sup>$2</sup></span></a><span hidden> </span>', $content);
 	$content = preg_replace('|\^\[([^\[\|\]]*)\|pr([^\[\|\]]*)\]|i', '<a href="#r$2" id="pr$2" class="pnote">$1<span class="sup"><sup>[$2]</sup></span></a>', $content);
 	$content = preg_replace('|\^\[pn([^\[\|\]]*)\]|i', '<a href="#n$1" id="pn$1" class="pnote"><span class="sup">*<sup>$1</sup></span></a><span hidden> </span>', $content);
-	$content = preg_replace('|\^\[pr([^\[\|\]]*)\]|i', '<a href="#r$1" id="pr$1" class="pnote"><class="sup"><sup>[$1]</sup></span></a>', $content);
+	$content = preg_replace('|\^\[pr([^\[\|\]]*)\]|i', '<a href="#r$1" id="pr$1" class="pnote"><span class="sup"><sup>[$1]</sup></span></a>', $content);
 	
 	// without 'p' (at the end)
 	$content = preg_replace('|\^\[n([^\[\|\]]*)\]|i', '<a href="#pn$1" id="n$1" class="note">*$1</a><span hidden> </span>', $content);
