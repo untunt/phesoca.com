@@ -69,21 +69,31 @@ a.pnote {
 }
 
 /* footnote */
-.pnote .sup {
+.pnote .note,
+.pnote-home .note {
 	top: -.125em;
 	position: relative;
 }
 
-.pnote .sup sup {
+.pnote .note sup,
+.pnote-home .note sup {
 	top: -.375em;
 }
 
-a.pnote .sup {
-	color: #007acc;
+.pnote:hover {
+	color: #686878;
 }
 
-a.pnote:hover,
-a.pnote:hover .sup {
+.pnote .annotated:hover {
+	color: initial;
+}
+
+blockquote .pnote:hover,
+blockquote .pnote a:hover {
+	color: #90909E;
+}
+
+blockquote .pnote .annotated:hover {
 	color: #686878;
 }
 
