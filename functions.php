@@ -18,6 +18,10 @@ function convert_note( $content ) {
 	// without 'p' (at the end)
 	$content = preg_replace('|\^\[n([^\[\|\]]*)\]|i', '<a href="#pn$1" id="n$1" class="note">*$1</a><span hidden> </span>', $content);
 	$content = preg_replace('|\^\[r([^\[\|\]]*)\]|i', '<a href="#pr$1" id="r$1" class="note">[$1]</a>', $content);
+    
+    if ( is_home() ) {
+		$content = str_replace('class="pnote">', 'class="pnote-home">', $content);
+	}
 	return $content;
 }
 add_filter( 'the_content', 'convert_note' );
