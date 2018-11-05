@@ -62,8 +62,7 @@
 }
 
 /* anchor */
-a.anchor,
-a.pnote {
+a.anchor {
 	color: #1a1a1e;
 	box-shadow: none;
 }
