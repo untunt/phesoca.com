@@ -13,6 +13,19 @@ Modified files (php, css, etc.) from WordPress's “Twenty Sixteen” theme for 
 
 ## Features
 
+### Full-Width Font for Chinese Punctuation
+
+Following punctuation marks are considered Chinese (East Asian) punctuation by default, and will be set to full-width:
+
+- Apostrophes (“”‘’)
+- Ellipsis (…)
+- Em dash (—)
+- Middot (·)
+
+To use these punctuation marks in half-width (e.g. in English or Math), put a backslash (\\) before them. For example: `An \‘apostrophe\’ in English`.
+
+Chinese punctuation is set to full-width by using styles `cn` and `cn-quot`.
+
 ### text-autospace.js
 
 Uses [text-autospace.js](https://github.com/mastermay/text-autospace.js) (see my [fork](https://github.com/untunt/text-autospace.js)) to automatically add space between East Asian characters and European alphabets.
