@@ -38,7 +38,9 @@ Class `hori-scroll` adds horizontal scrolling to its content, which is often a w
 
 ### text-autospace.js
 
-Uses [text-autospace.js](https://github.com/mastermay/text-autospace.js) (see my [fork](https://github.com/untunt/text-autospace.js)) to automatically add space between East Asian characters and European alphabets.
+Uses [text-autospace.js](https://github.com/mastermay/text-autospace.js) (see my [fork](https://github.com/untunt/text-autospace.js)) to automatically insert spacing between East Asian characters and European alphabets.
+
+To prevent spacing, add `<span hidden> </span>` between East Asian characters and European alphabets.
 
 ### Expression for Footnotes and References
 
