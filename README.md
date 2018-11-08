@@ -24,7 +24,17 @@ Following punctuation marks are considered Chinese (East Asian) punctuation by d
 
 To use these punctuation marks in half-width (e.g. in English or Math), put a backslash (\\) before them. For example: `An \‘apostrophe\’ in English`.
 
-Chinese punctuation is set to full-width by using styles `cn` and `cn-quot`.
+Chinese punctuation is set to full-width by using classes `cn` and `cn-quot`.
+
+### Table with Horizontal Scrolling
+
+Class `hori-scroll` adds horizontal scrolling to its content, which is often a wide table. Usage:
+
+```html
+<div class="hori-scroll">
+	<table>...</table>
+</div>
+```
 
 ### text-autospace.js
 
