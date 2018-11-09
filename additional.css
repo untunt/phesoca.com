@@ -37,6 +37,14 @@
 	text-decoration: underline;
 }
 
+.insert-page h2 a {
+	text-decoration: none;
+}
+
+.insert-page h2 a:hover {
+	color: #007acc;
+}
+
 .second-title h2.widget-title {
 	margin-top: 1.75em;
 }
