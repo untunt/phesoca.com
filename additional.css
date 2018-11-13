@@ -256,6 +256,31 @@ blockquote {
 	height: 100%;
 }
 
+/* reset blockquote */
+blockquote cite,
+blockquote small {
+	color: inherit;
+	display: initial;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+blockquote cite:before,
+blockquote small:before {
+	content: none;
+}
+
+blockquote em,
+blockquote i,
+blockquote cite {
+	font-style: italic;
+}
+
+blockquote strong,
+blockquote b {
+	font-weight: 700;
+}
+
 /* fonts */
 body {
 	font-family: -apple-system, "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
