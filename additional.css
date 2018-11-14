@@ -256,6 +256,14 @@ blockquote {
 	height: 100%;
 }
 
+.text-align-right {
+	text-align: right;
+}
+
+.cite-source:before {
+	content: "\2014\00a0";
+}
+
 /* reset blockquote */
 blockquote cite,
 blockquote small {
