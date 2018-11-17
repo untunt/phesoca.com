@@ -77,3 +77,11 @@ function text_autospace() {
 	wp_enqueue_script( 'text-autospace', plugins_url( 'text-autospace.min.js' ), array( 'jquery' ) );
 }
 add_action( 'wp_enqueue_scripts', 'text_autospace' );
+
+function convert_md_tag( $content ) {
+	$from = array('<p>[[play script begin]]</p>', '<p>[[play script end]]</p>', '');
+	$to = array('<div class="play-script">', '</div>');
+	$content = str_replace( $from, $to, $content );
+	return $content;
+}
+add_filter( 'the_content', 'convert_md_tag' );
