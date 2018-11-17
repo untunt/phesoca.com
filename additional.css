@@ -318,12 +318,12 @@ body,
 
 .kaiti,
 .stage-direction {
-	font-family: Baskerville, Georgia, "Liberation Serif", "Kaiti SC", STKaiti, "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, DFKai-SB, "TW\-Kai", serif;
+	font-family: Baskerville, Georgia, "Liberation Serif", "Kaiti SC", "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, STKaiti, DFKai-SB, "TW\-Kai", serif;
 }
 
 .fangsong,
 .character-name {
-	font-family: Baskerville, "Times New Roman", "Liberation Serif", STFangsong, FangSong, FangSong_GB2312, "CWTEX\-F", serif;
+	font-family: Baskerville, "Times New Roman", "Liberation Serif", FangSong, FangSong_GB2312, STFangsong, "CWTEX\-F", serif;
 }
 
 /* 思源黑体的中点是半角 */
