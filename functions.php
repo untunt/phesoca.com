@@ -85,3 +85,9 @@ function convert_md_tag( $content ) {
 	return $content;
 }
 add_filter( 'the_content', 'convert_md_tag' );
+
+function add_actor_line_class( $content ) {
+	$content = preg_replace('#<p>(<span class="character-name">)#', '<p class="actor-line">$1', $content);
+	return $content;
+}
+add_filter( 'the_content', 'add_actor_line_class' );
