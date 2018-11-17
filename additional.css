@@ -285,8 +285,30 @@ blockquote b {
 	font-weight: 700;
 }
 
+/* play script*/
+.play-script p {
+	margin-bottom: 0.75em;
+}
+
+.play-script p.actor-line {
+	margin-left: 4em;
+	text-indent: -4em;
+}
+
+.character-name {
+	float: left;
+	width: 4em;
+}
+
+fwsp:before,
+.character-name ruby rt:before {
+	content: "\3000";
+}
+
 /* fonts */
-body {
+body,
+.character-name ruby fwsp,
+.character-name ruby rt:before {
 	font-family: -apple-system, "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
 }
 
@@ -294,11 +316,13 @@ body {
 	font-family: Georgia, "Nimbus Roman No9 L", "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "AR PL New Sung", "AR PL SungtiL GB", NSimSun, SimSun, "TW\-Sung", "WenQuanYi Bitmap Song", "AR PL UMing CN", "AR PL UMing HK", "AR PL UMing TW", "AR PL UMing TW MBE", PMingLiU, MingLiU, serif;
 }
 
-.kaiti {
+.kaiti,
+.stage-direction {
 	font-family: Baskerville, Georgia, "Liberation Serif", "Kaiti SC", STKaiti, "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, DFKai-SB, "TW\-Kai", serif;
 }
 
-.fangsong {
+.fangsong,
+.character-name {
 	font-family: Baskerville, "Times New Roman", "Liberation Serif", STFangsong, FangSong, FangSong_GB2312, "CWTEX\-F", serif;
 }
 
