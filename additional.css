@@ -260,6 +260,10 @@ blockquote {
 	text-align: right;
 }
 
+.text-align-center {
+	text-align: center;
+}
+
 /* reset blockquote */
 blockquote cite,
 blockquote small {
@@ -295,20 +299,19 @@ blockquote b {
 	text-indent: -4em;
 }
 
-.character-name {
-	float: left;
+.play-script p.actor-line .character-name {
+	display: inline-block;
 	width: 4em;
+	height: 1em; /* prevent adding extra line height */
+	text-indent: 0;
 }
 
-fwsp:before,
-.character-name ruby rt:before {
+fwsp:after {
 	content: "\3000";
 }
 
 /* fonts */
-body,
-.character-name ruby fwsp,
-.character-name ruby rt:before {
+body {
 	font-family: -apple-system, "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
 }
 
