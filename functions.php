@@ -88,6 +88,7 @@ add_filter( 'the_content', 'convert_md_tag' );
 
 function add_actor_line_class( $content ) {
 	$content = preg_replace('#<p>(<span class="character-name">)#', '<p class="actor-line">$1', $content);
+    $content = preg_replace('#(<span class="character-name">((?!<\/span>).)*)(<\/span>)#', '$1<span hidden> </span>$3', $content);
 	return $content;
 }
 add_filter( 'the_content', 'add_actor_line_class' );
