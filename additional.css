@@ -289,6 +289,10 @@ blockquote b {
 	font-weight: 700;
 }
 
+.katex {
+	font-size: 1em !important;
+}
+
 /* play script */
 .play-script p {
 	margin-bottom: 0.75em;
