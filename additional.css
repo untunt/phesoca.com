@@ -293,6 +293,10 @@ blockquote b {
 	font-size: 1em !important;
 }
 
+.frac-line {
+	border-bottom-width: 1px !important;
+}
+
 /* play script */
 .play-script p {
 	margin-bottom: 0.75em;
