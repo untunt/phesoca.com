@@ -16,8 +16,8 @@ function convert_note( $content ) {
 	$content = preg_replace('|\^\[pr([^\[\|\]]*)\]|i', '<span id="pr$1" class="pnote"><a href="#r$1" class="note"><sup>[$1]</sup></span></a></span>', $content);
 	
 	// without 'p' (at the end)
-	$content = preg_replace('|\^\[n([^\[\|\]]*)\]|i', '<span id="n$1"><a href="#pn$1" class="note">*$1</a></span><span hidden> </span>', $content);
-	$content = preg_replace('|\^\[r([^\[\|\]]*)\]|i', '<span id="n$1"><a href="#pr$1" id="r$1" class="note">[$1]</a></span>', $content);
+	$content = preg_replace('|\^\[n([^\[\|\]]*)\] *|i', '<span class="note-block"><span id="n$1"><a href="#pn$1" class="note">*$1</a></span></span><span hidden> </span>', $content);
+	$content = preg_replace('|\^\[r([^\[\|\]]*)\] *|i', '<span class="note-block"><span id="r$1"><a href="#pr$1" class="note">[$1]</a></span></span>', $content);
 	
 	if ( is_home() ) {
 		$content = str_replace('class="pnote">', 'class="pnote-home">', $content);
@@ -79,8 +79,22 @@ function text_autospace() {
 add_action( 'wp_enqueue_scripts', 'text_autospace' );
 
 function convert_md_tag( $content ) {
-	$from = array('<p>[[play script begin]]</p>', '<p>[[play script end]]</p>', '');
-	$to = array('<div class="play-script">', '</div>');
+	$from = array(
+		'<p>[[play script begin]]</p>',
+		'<p>[[play script end]]</p>',
+		'<p>[[footnotes begin]]</p>',
+		'<p>[[footnotes end]]</p>',
+		'<p>[[references begin]]</p>',
+		'<p>[[references end]]</p>'
+	);
+	$to = array(
+		'<div class="play-script">',
+		'</div>',
+		'<div class="footnotes"><hr><blockquote>',
+		'</blockquote></div>',
+		'<div class="references">',
+		'</div>'
+	);
 	$content = str_replace( $from, $to, $content );
 	return $content;
 }
@@ -88,7 +102,7 @@ add_filter( 'the_content', 'convert_md_tag' );
 
 function add_actor_line_class( $content ) {
 	$content = preg_replace('#<p>(<span class="character-name">)#', '<p class="actor-line">$1', $content);
-    $content = preg_replace('#(<span class="character-name">((?!<\/span>).)*)(<\/span>)#', '$1<span hidden> </span>$3', $content);
+	$content = preg_replace('#(<span class="character-name">((?!<\/span>).)*)(<\/span>)#', '$1<span hidden> </span>$3', $content);
 	return $content;
 }
 add_filter( 'the_content', 'add_actor_line_class' );

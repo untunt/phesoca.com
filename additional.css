@@ -76,6 +76,40 @@ a.anchor {
 }
 
 /* footnote */
+.footnotes {
+	margin: 2em 0 2em;
+}
+
+.footnotes hr {
+	width: 38.2%; /* golden ratio */
+	margin-bottom: 1.2em;
+}
+
+.footnotes blockquote {
+	margin-left: 0em !important;
+	border-left-width: 0;
+	padding-left: 0;
+}
+
+.footnotes p,
+.references p {
+	margin-left: 1.75em;
+	text-indent: -1.75em;
+	line-height: 1.4736842105;
+}
+
+.footnotes p,
+.references p:not(:last-child) {
+	margin-bottom: 0.25em;
+}
+
+.footnotes .note-block,
+.references .note-block {
+	display: inline-block;
+	width: 1.75em;
+	text-indent: 0;
+}
+
 .pnote .note,
 .pnote-home .note {
 	top: -.125em;
@@ -329,12 +363,12 @@ body {
 
 .kaiti,
 .stage-direction {
-	font-family: Baskerville, Georgia, "Liberation Serif", "Kaiti SC", "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, STKaiti, DFKai-SB, "TW\-Kai", serif;
+	font-family: Baskerville, "Garamond", "Palatino Linotype", "Book Antiqua", "Times New Roman", "Liberation Serif", "Kaiti SC", "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, STKaiti, DFKai-SB, "TW\-Kai", serif;
 }
 
 .fangsong,
 .character-name {
-	font-family: Baskerville, "Times New Roman", "Liberation Serif", FangSong, FangSong_GB2312, STFangsong, "CWTEX\-F", serif;
+	font-family: Baskerville, "Garamond", "Palatino Linotype", "Book Antiqua", "Times New Roman", "Liberation Serif", FangSong, FangSong_GB2312, STFangsong, "CWTEX\-F", serif;
 }
 
 /* 思源黑体的中点是半角 */
