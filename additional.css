@@ -45,6 +45,15 @@
 	color: #007acc;
 }
 
+.insert-page-shown,
+.insert-page .insert-page-hidden {
+	display: none;
+}
+
+.insert-page .insert-page-shown {
+	display: initial;
+}
+
 .second-title h2.widget-title {
 	margin-top: 1.75em;
 }
