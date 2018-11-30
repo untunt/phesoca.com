@@ -47,3 +47,9 @@ To prevent spacing, add `<span hidden> </span>` between East Asian characters an
 `^[footnoted text|pn1]` produces “footnoted text*<sup>1</sup>” with anchor id `pn1` and a link to `#n1`.
 
 `^[n1]` produces “\*1” with anchor id `n1` and a link to `#pn1`.
+
+## Formatting Guide
+
+### Alphabetic Year Numbering
+
+Use `&apos;` instead of `'` for years before 2011 (e.g. `0&apos;11.21` (0'11.21) meaning Nov 21, 2010), since `'` will be converted into `’`.
