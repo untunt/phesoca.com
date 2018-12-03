@@ -362,8 +362,64 @@ fwsp:after {
 }
 
 /* fonts */
-body {
+/* originally: Merriweather, Georgia, serif */
+body,
+button,
+input,
+select,
+textarea,
+.required,
+.comment-form .comment-form-cookies-consent label {
 	font-family: -apple-system, "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+}
+
+/* originally: Montserrat, "Helvetica Neue", sans-serif */
+::-webkit-input-placeholder,
+button,
+button[disabled]:hover,
+button[disabled]:focus,
+input[type="button"],
+input[type="button"][disabled]:hover,
+input[type="button"][disabled]:focus,
+input[type="reset"],
+input[type="reset"][disabled]:hover,
+input[type="reset"][disabled]:focus,
+input[type="submit"],
+input[type="submit"][disabled]:hover,
+input[type="submit"][disabled]:focus,
+.post-password-form label,
+.main-navigation,
+.post-navigation,
+.post-navigation .post-title,
+.pagination,
+.image-navigation,
+.comment-navigation,
+.site .skip-link,
+.widget .widget-title,
+.widget_recent_entries .post-date,
+.widget_rss .rss-date,
+.widget_rss cite,
+.tagcloud a,
+.site-title,
+.entry-title,
+.entry-footer,
+.sticky-post,
+.page-title,
+.page-links,
+.comments-title,
+.comment-reply-title,
+.comment-metadata,
+.pingback .edit-link,
+.comment-reply-link,
+.comment-form label,
+.no-comments,
+.widecolumn .mu_register label,
+/* originally: "Open Sans", sans-serif */
+.logged-in .site .skip-link,
+/* originally: Montserrat, sans-serif */
+.site-footer .site-title:after,
+.site-footer span[role=separator] {
+	font-family: "Gill Sans", Tahoma, -apple-system, "Noto Sans", "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
 }
 
 .songti {
