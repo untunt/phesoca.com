@@ -54,6 +54,7 @@ function chinese_punctuations( $content ) {
 	return $content;
 }
 add_filter( 'the_content', 'chinese_punctuations' );
+add_filter( 'the_title', 'chinese_punctuations' );
 
 function replace_empty_p( $content ) {
 	$content = str_replace('<p></p>', '<br>', $content);
