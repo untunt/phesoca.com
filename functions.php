@@ -107,3 +107,11 @@ function add_actor_line_class( $content ) {
 	return $content;
 }
 add_filter( 'the_content', 'add_actor_line_class' );
+
+function exclude_category_on_homepage( $query ) {
+	if ( $query->is_home ) {
+		$query->set( 'cat', '-6' );
+	}
+	return $query;
+}
+add_filter( 'pre_get_posts', 'exclude_category_on_homepage' );
