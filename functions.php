@@ -115,3 +115,11 @@ function exclude_category_on_homepage( $query ) {
 	return $query;
 }
 add_filter( 'pre_get_posts', 'exclude_category_on_homepage' );
+
+function replace_to_en_space( $title ) {
+	if ( substr( $title, 0, 3 ) === 'AWs' ) {
+		$title = preg_replace('/ /', '&ensp;', $title, 1);
+	}
+	return $title;
+}
+add_filter( 'the_title', 'replace_to_en_space' );
