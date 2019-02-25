@@ -360,6 +360,33 @@ fwsp:after {
 	content: "\3000";
 }
 
+#ez-toc-container {
+	background: #f8fafc;
+	border: 1px solid #686878;
+	border-radius: 10px;
+	display: table;
+	margin-bottom: 1.64em;
+	padding: 15px;
+}
+
+#ez-toc-container .ez-toc-title {
+	font-weight: 700;
+	font-size: 1.1875rem;
+	line-height: 1.1052631579;
+	margin-top: 2.5px;
+	margin-bottom: 10px;
+}
+
+#ez-toc-container .ez-toc-list {
+	font-size: 14px;
+	font-size: .875rem;
+	margin: 0 0 0 1.4em;
+}
+
+#ez-toc-container .ez-toc-list a {
+	box-shadow: none;
+}
+
 /* fonts */
 /* originally: Merriweather, Georgia, serif */
 body,
