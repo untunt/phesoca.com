@@ -245,6 +245,17 @@ figcaption,
 	margin-bottom: 1.64em;
 }
 
+.music-notation figcaption,
+.music-notation .figure-caption {
+	text-align: left;
+	margin-top: initial;
+	margin-bottom: 0.25em;
+}
+
+.music-notation img {
+	margin-bottom: 1.64em;
+}
+
 caption .table-number,
 figcaption .figure-number,
 .table-caption .table-number,

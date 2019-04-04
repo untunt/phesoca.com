@@ -24,6 +24,8 @@ Following punctuation marks are considered Chinese (East Asian) punctuation by d
 
 To use these punctuation marks in half-width (e.g. in English or Math), put a backslash (\\) before them. For example: `An \‘apostrophe\’ in English`.
 
+For the middot before syllables with neutral tone (轻声) in pinyin, use “ꞏ” (`U+A78F` modifier letter middot) instead.
+
 Chinese punctuation is set to full-width by using classes `cn` and `cn-quot`.
 
 ### Table with Horizontal Scrolling
