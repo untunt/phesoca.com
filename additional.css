@@ -170,6 +170,10 @@ sub.not-sunk {
 	bottom: 0;
 }
 
+sub.er {
+	bottom: -.125em;
+}
+
 article {
 	font-size: 0.9375em; /*15px*/
 }
