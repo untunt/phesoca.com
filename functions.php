@@ -30,27 +30,35 @@ add_filter( 'the_content', 'convert_note' );
 
 function chinese_punctuations( $content ) {
 	$prefix = '<span class="cn">';
-	$prefix_q = '<span class="cn-quot">';
+	$prefix_q_l = '<span class="cn-quot cn-quot-left">';
+	$prefix_q_r = '<span class="cn-quot cn-quot-right">';
 	$suffix = '</span>';
 
 	$from = array('…', '—', '·');
-	$from_q = array('“', '”', '‘', '’', '');
+	$from_q_l = array('“', '‘');
+	$from_q_r = array('”', '’', '');
+
+	// assemble output strings
 	$to = $from;
 	foreach ($to as &$punct) {
 		$punct = $prefix . $punct . $suffix;
 	}
-	$to_q = $from_q;
-	foreach ($to_q as &$punct) {
-		$punct = $prefix_q . $punct . $suffix;
+	$to_q_l = $from_q_l;
+	foreach ($to_q_l as &$punct) {
+		$punct = $prefix_q_l . $punct . $suffix;
 	}
-	
-	$from = array_merge($from, $from_q);
-	$to = array_merge($to, $to_q);
+	$to_q_r = $from_q_r;
+	foreach ($to_q_r as &$punct) {
+		$punct = $prefix_q_r . $punct . $suffix;
+	}
+
+	$from = array_merge($from, $from_q_l, $from_q_r);
+	$to = array_merge($to, $to_q_l, $to_q_r);
 	$except = $to;
 	foreach ($except as &$punct) {
 		$punct = '\\' . $punct;
 	}
-	
+
 	$content = str_replace($from, $to, $content);
 	$content = str_replace($except, $from, $content);
 	return $content;
