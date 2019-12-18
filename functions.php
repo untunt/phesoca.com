@@ -139,3 +139,10 @@ function replace_to_hanla( $content ) {
 }
 add_action( 'the_content', 'replace_to_hanla' );
 add_filter( 'the_title', 'replace_to_hanla' );
+
+function change_posts_per_page_for_mobile( $query ) {
+	if( $query->is_main_query() && wp_is_mobile() ) {
+		$query->set( 'posts_per_page', '5' );
+	}
+}
+add_action( 'pre_get_posts', 'change_posts_per_page_for_mobile' );
