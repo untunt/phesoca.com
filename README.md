@@ -50,6 +50,14 @@ To prevent spacing, add `<span hidden> </span>` between East Asian characters an
 
 `^[n1]` produces “\*1” with anchor id `n1` and a link to `#pn1`.
 
+### Tooltip
+
+Visible on hover. Usage:
+
+```html
+<span class="hint" data-tooltip="hUNTun">馄饨</span>
+```
+
 ## Formatting Guide
 
 ### Alphabetic Year Numbering

@@ -375,6 +375,59 @@ fwsp:after {
 	content: "\3000";
 }
 
+/* tooltip */
+.hint {
+	position: relative;
+	border-bottom: 1px dashed #686878;
+	cursor: help;
+}
+
+.hint[data-tooltip]:after,
+.hint[data-tooltip]:before {
+	visibility: hidden;
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	transition: all .3s;
+}
+
+.hint[data-tooltip]:after {
+	content: attr(data-tooltip);
+	transform: translate(2px, -50%);
+	white-space: pre;
+	padding: 5px 10px;
+	background-color: transparent;
+	color: transparent;
+	border-radius: 4px;
+}
+
+.hint[data-tooltip]:before {
+	content: '';
+	height: 0;
+	width: 0;
+	transform: translate(-2px, -50%);
+	border-width: 4px 4px 4px 0;
+	border-style: solid;
+	border-color: transparent;
+}
+
+.hint:hover:after,
+.hint:hover:before {
+	transition: all .3s;
+	visibility: visible;
+}
+
+.hint:hover:after {
+	color: #f0f4f8;
+	background-color: #1a1a1e;
+	transform: translate(6px, -50%);
+}
+
+.hint:hover:before {
+	border-color: transparent #1a1a1e transparent transparent;
+	transform: translate(2px, -50%);
+}
+
 #ez-toc-container {
 	background: #f8fafc;
 	border: 1px solid #686878;
