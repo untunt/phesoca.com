@@ -28,39 +28,56 @@ function convert_note( $content ) {
 }
 add_filter( 'the_content', 'convert_note' );
 
-function chinese_punctuations( $content ) {
-	$prefix = '<span class="cn">';
-	$prefix_q_l = '<span class="cn-quot cn-quot-left">';
-	$prefix_q_r = '<span class="cn-quot cn-quot-right">';
+function add_tag_expect_slash( $content, $regex, $prefix, $suffix, $suffix_reg ) {
+	$content = preg_replace( "#($regex)#u", "$prefix$1$suffix", $content );
+	$content = preg_replace( "#\\\\$prefix($regex)$suffix_reg#u", "\\\\$1", $content );
+	return $content;
+}
+
+function add_span_expect_slash( $content, $regex, $prefix ) {
 	$suffix = '</span>';
+	$suffix_reg = '<\\/span>';
+	return add_tag_expect_slash( $content, $regex, $prefix, $suffix, $suffix_reg );
+}
 
-	$from = array('…', '—', '·');
-	$from_q_l = array('“', '‘');
-	$from_q_r = array('”', '’', '');
+function chinese_punctuations( $content ) {
+	$mark_line = '…|—';
+	$mark_dot = '·';
+	$mark_quot_l = '“|‘';
+	$mark_quot_r = '”|’';
+	$mark_all = "$mark_line|$mark_dot|$mark_quot_l|$mark_quot_r";
 
-	// assemble output strings
-	$to = $from;
-	foreach ($to as &$punct) {
-		$punct = $prefix . $punct . $suffix;
-	}
-	$to_q_l = $from_q_l;
-	foreach ($to_q_l as &$punct) {
-		$punct = $prefix_q_l . $punct . $suffix;
-	}
-	$to_q_r = $from_q_r;
-	foreach ($to_q_r as &$punct) {
-		$punct = $prefix_q_r . $punct . $suffix;
-	}
+	$prefix_nobr = '<span class="non-breaking">';
+	$prefix_cn = '<span class="cn">';
+	$prefix_cnquot_l = '<span class="cn-quot text-align-right">';
+	$prefix_cnquot_r = '<span class="cn-quot">';
+	$prefix_fw = '<span class="full-width-char">';
 
-	$from = array_merge($from, $from_q_l, $from_q_r);
-	$to = array_merge($to, $to_q_l, $to_q_r);
-	$except = $to;
-	foreach ($except as &$punct) {
-		$punct = '\\' . $punct;
-	}
+	$subgrp_l = "(?:$mark_quot_l)+";
+	$subgrp_r = "(?:$mark_quot_r)+";
+	$subgrp_a  = "[^\\\\]?|\\\\(?:$mark_all)"; // expect \ and include \“
+	$subgrp_b_l = "$|[^\\\\<]|\\\\(?:$mark_all)"; // expect “<
+	$subgrp_b_r = "^|[^\\\\>]|\\\\(?:$mark_all)"; // expect >”
 
-	$content = str_replace($from, $to, $content);
-	$content = str_replace($except, $from, $content);
+	// add "non-breaking" around quotation marks
+	$grp = "(?:$subgrp_l)(?:$subgrp_a)(?:$subgrp_r)" // matching 0 or 1 char between quotation marks
+		. "|(?:$subgrp_l)(?:$subgrp_b_l)|(?:$subgrp_b_r)(?:$subgrp_r)"; // matching multiple chars between quotation marks
+	$content = add_span_expect_slash( $content, $grp, $prefix_nobr );
+
+	// add "cn" around line and dot marks
+	$grp = "(?:$mark_line)+|$mark_dot";
+	$content = add_span_expect_slash( $content, $grp, $prefix_cn );
+
+	// add "cn" around quotation marks
+	$content = add_span_expect_slash( $content, $subgrp_l, $prefix_cnquot_l );
+	$content = add_span_expect_slash( $content, $subgrp_r, $prefix_cnquot_r );
+
+	// add "full-width-char" around dot and quotation marks
+	$grp = "$mark_dot|$mark_quot_l|$mark_quot_r";
+	$content = add_span_expect_slash( $content, $grp, $prefix_fw );
+
+	// keep non-Chinese style
+	$content = preg_replace( "#\\\\($mark_all)#", "$1", $content );
 	return $content;
 }
 add_filter( 'the_content', 'chinese_punctuations' );
