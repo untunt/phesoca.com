@@ -9,18 +9,44 @@ function remove_more_link_scroll( $link ) {
 add_filter( 'the_content_more_link', 'remove_more_link_scroll' );
 
 function convert_note( $content ) {
-	// with 'p' (in the body)
-	$content = preg_replace('|\^\[([^\[\|\]]*)\|pn([^\[\|\]]*)\]|i', '<span id="pn$2" class="pnote"><span class="annotated">$1</span><a href="#n$2" class="note">*<sup>$2</sup></a></span><span hidden> </span>', $content);
-	$content = preg_replace('|\^\[([^\[\|\]]*)\|pr([^\[\|\]]*)\]|i', '<span id="pr$2" class="pnote"><span class="annotated">$1</span><a href="#r$2" class="note"><sup>[$2]</sup></a></span>', $content);
-	$content = preg_replace('|\^\[([^\[\|\]]*)&#124;pn([^\[\|\]]*)\]|i', '<span id="pn$2" class="pnote"><span class="annotated">$1</span><a href="#n$2" class="note">*<sup>$2</sup></a></span><span hidden> </span>', $content);
-	$content = preg_replace('|\^\[([^\[\|\]]*)&#124;pr([^\[\|\]]*)\]|i', '<span id="pr$2" class="pnote"><span class="annotated">$1</span><a href="#r$2" class="note"><sup>[$2]</sup></a></span>', $content);
-	$content = preg_replace('|\^\[pn([^\[\|\]]*)\]|i', '<span id="pn$1" class="pnote"><a href="#n$1" class="note">*<sup>$1</sup></a></span><span hidden> </span>', $content);
-	$content = preg_replace('|\^\[pr([^\[\|\]]*)\]|i', '<span id="pr$1" class="pnote"><a href="#r$1" class="note"><sup>[$1]</sup></span></a></span>', $content);
-	
-	// without 'p' (at the end)
-	$content = preg_replace('|\^\[n([^\[\|\]]*)\] *|i', '<span class="note-block"><span id="n$1"><a href="#pn$1" class="note">*$1</a></span></span><span hidden> </span>', $content);
-	$content = preg_replace('|\^\[r([^\[\|\]]*)\] *|i', '<span class="note-block"><span id="r$1"><a href="#pr$1" class="note">[$1]</a></span></span>', $content);
-	
+	$arg = '([^\[\|\]]*)'; // argument: any text expect [, |, ]
+	$sep = '(?:\||\&#124;)'; // separator: &#124; = |
+
+	$out_head = '<span id="pn$2" class="pnote"><span class="annotated">$1</span><a href="#$4" class="note">';
+	$out_n = $out_head . '*<sup>$3</sup></a></span><span hidden> </span>';
+	$out_head = str_replace('n$', 'r$', $out_head);
+	$out_r = $out_head . '<sup>[$3]</sup></a></span>';
+
+	// anchor with 'p' (in the body)
+	// format: ^[text|anchor|note text|link]
+	$content = preg_replace("@\^\[(?:$arg$sep)pn$arg$sep$arg$sep$arg\]@i", $out_n, $content);
+	$content = preg_replace("@\^\[(?:$arg$sep)pr$arg$sep$arg$sep$arg\]@i", $out_r, $content);
+	$out_n = str_replace('$4', 'n$2', $out_n);
+	$out_r = str_replace('$4', 'r$2', $out_r);
+	$content = preg_replace("@\^\[(?:$arg$sep)pn$arg$sep$arg\]@i", $out_n, $content);
+	$content = preg_replace("@\^\[(?:$arg$sep)pr$arg$sep$arg\]@i", $out_r, $content);
+	$out_n = str_replace('$3', '$2', $out_n);
+	$out_r = str_replace('$3', '$2', $out_r);
+	$content = preg_replace("@\^\[(?:$arg$sep)?pn$arg\]@i", $out_n, $content);
+	$content = preg_replace("@\^\[(?:$arg$sep)?pr$arg\]@i", $out_r, $content);
+
+	$out_head = '<span class="note-block"><span id="n$1"><a href="#$3" class="note">';
+	$out_n = $out_head . '*$2</a></span></span><span hidden> </span>';
+	$out_head = str_replace('n$', 'r$', $out_head);
+	$out_r = $out_head . '[$2]</a></span></span>';
+
+	// anchor without 'p' (at the end)
+	$content = preg_replace("@\^\[n$arg$sep$arg$sep$arg\] *@i", $out_n, $content);
+	$content = preg_replace("@\^\[r$arg$sep$arg$sep$arg\] *@i", $out_r, $content);
+	$out_n = str_replace('$3', 'pn$1', $out_n);
+	$out_r = str_replace('$3', 'pr$1', $out_r);
+	$content = preg_replace("@\^\[n$arg$sep$arg\] *@i", $out_n, $content);
+	$content = preg_replace("@\^\[r$arg$sep$arg\] *@i", $out_r, $content);
+	$out_n = str_replace('$2', '$1', $out_n);
+	$out_r = str_replace('$2', '$1', $out_r);
+	$content = preg_replace("@\^\[n$arg\] *@i", $out_n, $content);
+	$content = preg_replace("@\^\[r$arg\] *@i", $out_r, $content);
+
 	if ( is_home() ) {
 		$content = str_replace('class="pnote">', 'class="pnote-home">', $content);
 	}
