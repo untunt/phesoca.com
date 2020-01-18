@@ -547,4 +547,5 @@ text {
 .full-width-char {
 	display: inline-block;
 	width: 1em;
+	text-indent: 0;
 }
