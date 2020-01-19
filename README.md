@@ -26,7 +26,9 @@ To use these punctuation marks in half-width (e.g. in English or Math), put a ba
 
 For the middot before syllables with neutral tone (轻声) in pinyin, use “ꞏ” (`U+A78F` modifier letter middot) instead.
 
-Chinese punctuation is set to full-width by using classes `cn` and `cn-quot`.
+If the interior character next to an apostrophe is a less- or greater-than sign (`“<` or `>”`), the `class="non-breaking"` tag will not be added. Please manually add under this circumstance.
+
+Chinese punctuation is set to full-width by using classes `cn`, `cn-quot`, and `full-width-char`.
 
 ### Table with Horizontal Scrolling
 
@@ -46,9 +48,15 @@ To prevent spacing, add `<span hidden> </span>` between East Asian characters an
 
 ### Expression for Footnotes and References
 
-`^[footnoted text|pn1]` produces “footnoted text*<sup>1</sup>” with anchor id `pn1` and a link to `#n1`.
+Format for number in the body: `^[noted text|anchor|note text|link]`.  The 2<sup>nd</sup> argument must start with either flags: `pn` for footnote, or `pr` for reference. The 1<sup>st</sup>, 3<sup>rd</sup>, and 4<sup>th</sup> arguments can be omitted. For example:
 
-`^[n1]` produces “\*1” with anchor id `n1` and a link to `#pn1`.
+- `^[pn1]` and `^[|pn1]` both produces “footnoted text\*<sup>1</sup>” with anchor id `pn1` and a link to `#n1`.
+- `^[footnoted text|pn1|note text|link]` produces “footnoted text\*<sup>note text</sup>” with anchor id `pn2` and a link to `#link`.
+
+Format for number at the end: `^[anchor|note text|link]`. The 1<sup>st</sup> argument must start with either flags: `n` for footnote, or `r` for reference. The 2<sup>nd</sup> and 3<sup>rd</sup> arguments can be omitted. For example:
+
+- `^[n1]` produces “\*1” with anchor id `n1` and a link to `#pn1`.
+- `^[n2|note text|link]` produces “\*note text” with anchor id `n2` and a link to `#link`.
 
 ### Tooltip
 
