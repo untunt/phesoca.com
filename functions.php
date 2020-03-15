@@ -8,82 +8,94 @@ function remove_more_link_scroll( $link ) {
 }
 add_filter( 'the_content_more_link', 'remove_more_link_scroll' );
 
+/**
+ * flags
+ *   n: note
+ *   r: reference
+ *   b: note or reference in the body (having anchor with 'p')
+ *      input format: ^[text|anchor|note text|link|suffix]
+ *   e: note or reference at the end (having anchor without 'p')
+ *      input format: ^[anchor|note text|link|suffix]
+ *   w: without <a> tag
+ */
+function convert_note_sub( $content, $flag ) {
+	$out_head = '<span class="pnote"><span id="pn$2">';
+	$out_mid0 =     '<span class="annotated">$1</span>';
+	$out_mid1 =     '<a href="#$5" class="note">';
+	$out_mid2 =         '*<sup>$3</sup>';
+	$out_mid3 =     '</a>';
+	$out_mid4 =     '<sup class="note-suffix">$4</sup>';
+	$out_tail = '</span></span><span hidden> </span>';
+
+	$arg = '([^\[\|\]]*)';   // argument: any text expect `[`, `|`, `]`
+	$sep = '(?:\||\&#124;)'; // separator: `|` = `&#124;`
+	$note_flag = 'n';        // `n` or `r`
+	$no_link = '_no_link';   // flag in `anchor` to remove <a> tag
+	if ( strpos( $flag, 'r' ) !== false ) {
+		$out_head = str_replace( 'n$', 'r$', $out_head );
+		$out_mid2 = '<sup>[$3]</sup>';
+		$note_flag = 'r';
+	}
+	$regex_head = "@\^\[(?:$arg$sep)";
+	$regex_head_ph = '@\^\[(foo){0}'; // placeholder
+	$regex_mid0 = 'p';
+	$regex_mid1 = $note_flag . $arg;
+	$regex_mid2 = $sep . $arg;
+	$regex_tail = '\]@i';
+
+	if ( strpos( $flag, 'e' ) !== false ) {
+		$out_head = str_replace( '"p', '"', $out_head );
+		$out_head = str_replace( 'note', 'note-block', $out_head );
+		$out_mid0 = '';
+		$out_mid1 = str_replace( '#', '#p', $out_mid1 );
+		$out_mid2 = str_replace( 'sup', 'span', $out_mid2 );
+		$out_mid4 = str_replace( 'sup', 'span', $out_mid4 );
+		$regex_head = $regex_head_ph;
+		$regex_mid0 = '';
+		$regex_mid2 = $sep . $arg;
+		$regex_tail = '\] *@i';
+		if ( strpos( $flag, 'w' ) !== false ) {
+			$out_mid1 = '<span class="note">';
+			$out_mid3 = '</span>';
+			$regex_mid1 = $note_flag . $arg . $no_link;
+		}
+	}
+
+	$regex = array(
+		5 => $regex_head . $regex_mid0 . $regex_mid1 . $regex_mid2 . $regex_mid2 . $regex_mid2 . $regex_tail,
+		4 => $regex_head . $regex_mid0 . $regex_mid1 . $regex_mid2 . $regex_mid2 . $regex_tail,
+		3 => $regex_head . $regex_mid0 . $regex_mid1 . $regex_mid2 . $regex_tail,
+		2 => $regex_head . $regex_mid0 . $regex_mid1 . $regex_tail,
+		1 => $regex_head_ph . $regex_mid0 . $regex_mid1 . $regex_tail,
+	);
+
+	$out = array();
+	$out[5] = $out_head . $out_mid0 . $out_mid1 . $out_mid2 . $out_mid3 . $out_mid4 . $out_tail;
+	if ( strpos( $flag, 'e' ) !== false ) {
+		// move the suffix ($out_mid4) into <a> tag ($out_mid3)
+		$out[5] = $out_head . $out_mid0 . $out_mid1 . $out_mid2 . $out_mid4 . $out_mid3 . $out_tail;
+	}
+	$out[4] = str_replace( '$5', $note_flag . '$2', $out[5] );
+	$out[3] = str_replace( $out_mid4, '', $out[4] );
+	$out[2] = str_replace( '$3', '$2', $out[3] );
+	$out[1] = str_replace( $out_mid0, '', $out[2] );
+
+	for ( $i = 5; $i > 0; $i-- ) {
+		$content = preg_replace( $regex[$i], $out[$i], $content );
+	}
+	return $content;
+}
+
 function convert_note( $content ) {
-	$arg = '([^\[\|\]]*)'; // argument: any text expect [, |, ]
-	$sep = '(?:\||\&#124;)'; // separator: &#124; = |
-
-	$out_n_head = '<span id="pn$2" class="pnote"><span class="annotated">$1</span><a href="#$4" class="note">';
-	$out_r_head = str_replace('n$', 'r$', $out_n_head);
-	$out_n = $out_n_head . '*<sup>$3$5</sup></a></span><span hidden> </span>';
-	$out_r = $out_r_head . '<sup>[$3]$5</sup></a></span>';
-
-	// anchor with 'p' (in the body)
-	// format: ^[text|anchor|note text|link|suffix]
-	// 5 arguments
-	$content = preg_replace("@\^\[(?:$arg$sep)pn$arg$sep$arg$sep$arg$sep$arg\]@i", $out_n, $content);
-	$content = preg_replace("@\^\[(?:$arg$sep)pr$arg$sep$arg$sep$arg$sep$arg\]@i", $out_r, $content);
-	$out_n = str_replace('$5', '', $out_n);
-	$out_r = str_replace('$5', '', $out_r);
-	// 4 arguments
-	$content = preg_replace("@\^\[(?:$arg$sep)pn$arg$sep$arg$sep$arg\]@i", $out_n, $content);
-	$content = preg_replace("@\^\[(?:$arg$sep)pr$arg$sep$arg$sep$arg\]@i", $out_r, $content);
-	$out_n = str_replace('$4', 'n$2', $out_n);
-	$out_r = str_replace('$4', 'r$2', $out_r);
-	// 3 arguments
-	$content = preg_replace("@\^\[(?:$arg$sep)pn$arg$sep$arg\]@i", $out_n, $content);
-	$content = preg_replace("@\^\[(?:$arg$sep)pr$arg$sep$arg\]@i", $out_r, $content);
-	$out_n = str_replace('$3', '$2', $out_n);
-	$out_r = str_replace('$3', '$2', $out_r);
-	// 1 or 2 arguments
-	$content = preg_replace("@\^\[(?:$arg$sep)?pn$arg\]@i", $out_n, $content);
-	$content = preg_replace("@\^\[(?:$arg$sep)?pr$arg\]@i", $out_r, $content);
-
-	$out_n_head = '<span class="note-block"><span id="n$1">';
-	$out_r_head = str_replace('n$', 'r$', $out_n_head);
-	$out_head_link = '<a href="#$3" class="note">';
-	$out_n = $out_n_head . $out_head_link . '*$2$4</a></span></span><span hidden> </span>';
-	$out_r = $out_r_head . $out_head_link . '[$2]$4</a></span></span>';
-	$out_n_without_link = str_replace('</a>', '', str_replace($out_head_link, '', $out_n));
-	$out_r_without_link = str_replace('</a>', '', str_replace($out_head_link, '', $out_r));
-	$no_link = '_no_link'; // flag in `anchor` to remove <a> tag
-
-	// anchor without 'p' (at the end)
-	// format: ^[anchor|note text|link|suffix]
-	// 4 arguments
-	$content = preg_replace("@\^\[n$arg$no_link$sep$arg$sep$arg$sep$arg\] *@i", $out_n_without_link, $content);
-	$content = preg_replace("@\^\[r$arg$no_link$sep$arg$sep$arg$sep$arg\] *@i", $out_r_without_link, $content);
-	$content = preg_replace("@\^\[n$arg$sep$arg$sep$arg$sep$arg\] *@i", $out_n, $content);
-	$content = preg_replace("@\^\[r$arg$sep$arg$sep$arg$sep$arg\] *@i", $out_r, $content);
-	$out_n_without_link = str_replace('$4', '', $out_n_without_link);
-	$out_r_without_link = str_replace('$4', '', $out_r_without_link);
-	$out_n = str_replace('$4', '', $out_n);
-	$out_r = str_replace('$4', '', $out_r);
-	// 3 arguments
-	$content = preg_replace("@\^\[n$arg$no_link$sep$arg$sep$arg\] *@i", $out_n_without_link, $content);
-	$content = preg_replace("@\^\[r$arg$no_link$sep$arg$sep$arg\] *@i", $out_r_without_link, $content);
-	$content = preg_replace("@\^\[n$arg$sep$arg$sep$arg\] *@i", $out_n, $content);
-	$content = preg_replace("@\^\[r$arg$sep$arg$sep$arg\] *@i", $out_r, $content);
-	$out_n_without_link = str_replace('$3', 'pn$1', $out_n_without_link);
-	$out_r_without_link = str_replace('$3', 'pr$1', $out_r_without_link);
-	$out_n = str_replace('$3', 'pn$1', $out_n);
-	$out_r = str_replace('$3', 'pr$1', $out_r);
-	// 2 arguments
-	$content = preg_replace("@\^\[n$arg$no_link$sep$arg\] *@i", $out_n_without_link, $content);
-	$content = preg_replace("@\^\[r$arg$no_link$sep$arg\] *@i", $out_r_without_link, $content);
-	$content = preg_replace("@\^\[n$arg$sep$arg\] *@i", $out_n, $content);
-	$content = preg_replace("@\^\[r$arg$sep$arg\] *@i", $out_r, $content);
-	$out_n_without_link = str_replace('$2', '$1', $out_n_without_link);
-	$out_r_without_link = str_replace('$2', '$1', $out_r_without_link);
-	$out_n = str_replace('$2', '$1', $out_n);
-	$out_r = str_replace('$2', '$1', $out_r);
-	// 1 argument
-	$content = preg_replace("@\^\[n$arg$no_link\] *@i", $out_n_without_link, $content);
-	$content = preg_replace("@\^\[r$arg$no_link\] *@i", $out_r_without_link, $content);
-	$content = preg_replace("@\^\[n$arg\] *@i", $out_n, $content);
-	$content = preg_replace("@\^\[r$arg\] *@i", $out_r, $content);
+	$content = convert_note_sub( $content, 'nb' );
+	$content = convert_note_sub( $content, 'rb' );
+	$content = convert_note_sub( $content, 'new' );
+	$content = convert_note_sub( $content, 'rew' );
+	$content = convert_note_sub( $content, 'ne' );
+	$content = convert_note_sub( $content, 're' );
 
 	if ( is_home() ) {
-		$content = str_replace('class="pnote">', 'class="pnote-home">', $content);
+		$content = str_replace( 'class="pnote">', 'class="pnote-home">', $content );
 	}
 	return $content;
 }
