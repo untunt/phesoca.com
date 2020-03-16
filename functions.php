@@ -48,6 +48,7 @@ function convert_note_sub( $content, $flag ) {
 		$out_head = str_replace( 'note', 'note-block', $out_head );
 		$out_mid0 = '';
 		$out_mid1 = str_replace( '#', '#p', $out_mid1 );
+		$out_mid2 = str_replace( '*<sup>', '<sup>*', $out_mid2 );
 		$out_mid2 = str_replace( 'sup', 'span', $out_mid2 );
 		$out_mid4 = str_replace( 'sup', 'span', $out_mid4 );
 		$regex_head = $regex_head_ph;
@@ -236,3 +237,9 @@ function change_posts_per_page_for_mobile( $query ) {
 	}
 }
 add_action( 'pre_get_posts', 'change_posts_per_page_for_mobile' );
+
+function remove_paragraph_end_hidden_space( $content ) {
+	$content = str_replace( '<span hidden> </span></p>', '</p>', $content );
+	return $content;
+}
+add_filter( 'the_content', 'remove_paragraph_end_hidden_space' );

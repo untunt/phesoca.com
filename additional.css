@@ -102,8 +102,8 @@ a.anchor {
 
 .footnotes p,
 .references p {
-	margin-left: 1.75em;
-	text-indent: -1.75em;
+	margin-left: 2em;
+	text-indent: -2em;
 	line-height: 1.4736842105;
 }
 
@@ -112,11 +112,43 @@ a.anchor {
 	margin-bottom: 0.25em;
 }
 
-.footnotes .note-block,
-.references .note-block {
+.footnotes .note-block:first-child,
+.references .note-block:first-child {
 	display: inline-block;
-	width: 1.75em;
+	min-width: 2em;
 	text-indent: 0;
+}
+
+.footnotes .note-block:not(:first-child),
+.references .note-block:not(:first-child) {
+	font-size: 93.333%;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.footnotes .note-block:not(:first-child):before,
+.references .note-block:not(:first-child):before {
+	content: "\A0\20";
+}
+
+.footnotes .note-block + [hidden] + .note-block:not(:first-child):before,
+.references .note-block + [hidden] + .note-block:not(:first-child):before {
+	font-size: 50%;
+}
+
+.footnotes .note-block:not(:first-child) a.note :not(.note-suffix),
+.references .note-block:not(:first-child) a.note :not(.note-suffix) {
+	display: none;
+}
+
+.footnotes .note-block:not(:first-child) .note-suffix:after,
+.references .note-block:not(:first-child) .note-suffix:after {
+	content: '↩︎';
+	font-size: 92%;
+	top: -.05em;
+	position: relative;
 }
 
 .pnote .note,
@@ -134,7 +166,8 @@ a.anchor {
 	color: #686878;
 }
 
-.pnote .annotated:hover {
+.pnote .annotated:hover,
+.pnote .annotated:hover ~ sup {
 	color: initial;
 }
 
@@ -143,7 +176,8 @@ blockquote .pnote a:hover {
 	color: #90909E;
 }
 
-blockquote .pnote .annotated:hover {
+blockquote .pnote .annotated:hover,
+blockquote .pnote .annotated:hover ~ sup {
 	color: #686878;
 }
 
