@@ -283,6 +283,10 @@ figcaption,
 	margin-bottom: 1.64em;
 }
 
+figure .figure {
+	text-align: center;
+}
+
 .music-notation figcaption,
 .music-notation .figure-caption {
 	text-align: left;
