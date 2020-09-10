@@ -123,6 +123,7 @@ function chinese_punctuations( $content ) {
 
 	$prefix_nobr = '<span class="non-breaking">';
 	$prefix_cn = '<span class="cn">';
+	$prefix_cn_center = '<span class="cn text-align-center">';
 	$prefix_cnquot_l = '<span class="cn-quot text-align-right">';
 	$prefix_cnquot_r = '<span class="cn-quot">';
 	$prefix_fw = '<span class="full-width-char">';
@@ -139,8 +140,10 @@ function chinese_punctuations( $content ) {
 	$content = add_span_expect_slash( $content, $grp, $prefix_nobr );
 
 	// add "cn" around line and dot marks
-	$grp = "(?:$mark_line)+|$mark_dot";
+	$grp = "(?:$mark_line)+";
 	$content = add_span_expect_slash( $content, $grp, $prefix_cn );
+	$grp = "$mark_dot";
+	$content = add_span_expect_slash( $content, $grp, $prefix_cn_center );
 
 	// add "cn" around quotation marks
 	$content = add_span_expect_slash( $content, $subgrp_l, $prefix_cnquot_l );
