@@ -229,7 +229,9 @@ function replace_to_en_space( $title ) {
 add_filter( 'the_title', 'replace_to_en_space' );
 
 function replace_to_hanla( $content ) {
-	return str_replace("&hlsp;", "<hanla> </hanla>", $content );
+	$content = str_replace( '&hl;', '<hanla></hanla>', $content );
+	$content = str_replace( '&hlsp;', '<hanla> </hanla>', $content );
+	return $content;
 }
 add_action( 'the_content', 'replace_to_hanla' );
 add_filter( 'the_title', 'replace_to_hanla' );
