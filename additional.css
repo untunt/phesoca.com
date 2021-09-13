@@ -271,6 +271,24 @@ table.smaller-text td {
 	padding: 4px;
 }
 
+div.format-desc {
+	display: none;
+}
+
+table.equal-col-width th,
+table.equal-col-width td,
+div.table.equal-col-width + table th,
+div.table.equal-col-width + table td {
+	width: 10%;
+}
+
+table.head-hidden thead,
+table.head-hidden th,
+div.table.head-hidden + table thead,
+div.table.head-hidden + table th {
+	display: none;
+}
+
 caption,
 .table-caption {
 	text-align: center;
@@ -311,6 +329,37 @@ figcaption .figure-number ~ .figure-caption-text,
 .table-caption .table-number ~ .table-caption-text,
 .figure-caption .figure-number ~ .figure-caption-text {
 	margin-left: 0.75em;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+	background: #F7FAFC !important;
+}
+
+pre[class*="language-"] {
+	border: none;
+}
+
+code[class*="language-"] {
+	padding: 0;
+}
+
+@media screen and (min-width: 44.375em) {
+	.code-toolbar {
+		width: 115%;
+	}
+}
+
+@media screen and (min-width: 56.875em) {
+	.code-toolbar {
+		width: 130%;
+	}
+}
+
+@media screen and (min-width: 61.5625em) {
+	.code-toolbar {
+		width: 140%;
+	}
 }
 
 /* some preset colors */
