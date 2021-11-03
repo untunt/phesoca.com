@@ -504,7 +504,7 @@ fwsp:after {
 	height: 0;
 	width: 0;
 	transform: translate(-2px, -50%);
-	border-width: 4px 4px 4px 0;
+	border-width: 5px 5px 5px 0;
 	border-style: solid;
 	border-color: transparent;
 }
