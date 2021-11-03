@@ -362,6 +362,12 @@ code[class*="language-"] {
 	}
 }
 
+@media screen and (min-width: 61.5625em) {
+	body:not(.search-results) article:not(.type-page).tag-entry-content-full-width .entry-content {
+		width: 100%;
+	}
+}
+
 /* some preset colors */
 .preset-yellow {
 	color: #ffd700; /* Gold */
