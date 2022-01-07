@@ -296,13 +296,10 @@ a.note {
 	background-position:0 95%;
 }
 
-sub.not-sunk {
-	font-size: 50%;
-	bottom: 0;
-}
-
-sub.er {
-	bottom: -.125em;
+.inline-note {
+	font-size: 75%;
+	position: relative;
+	bottom: -0.1em;
 }
 
 article {
@@ -726,7 +723,7 @@ text {
 }
 
 code, kbd, tt, var, samp, pre {
-	font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+	font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
 }
 
 :lang(ja) {

@@ -48,7 +48,7 @@ To prevent spacing, add `<span hidden> </span>` between East Asian characters an
 
 ### Expression for Footnotes and References
 
-Format for number in the body: `^[noted text|anchor|note text|link]`.  The 2<sup>nd</sup> argument must start with either flags: `pn` for footnote, or `pr` for reference. The 1<sup>st</sup>, 3<sup>rd</sup>, and 4<sup>th</sup> arguments can be omitted. For example:
+Format for number in the body: `^[noted text|anchor|note text|link]`. The 2<sup>nd</sup> argument must start with either flags: `pn` for footnote, or `pr` for reference. The 1<sup>st</sup>, 3<sup>rd</sup>, and 4<sup>th</sup> arguments can be omitted. For example:
 
 - `^[pn1]` and `^[|pn1]` both produces “footnoted text\*<sup>1</sup>” with anchor id `pn1` and a link to `#n1`.
 - `^[footnoted text|pn1|note text|link]` produces “footnoted text\*<sup>note text</sup>” with anchor id `pn2` and a link to `#link`.
@@ -65,6 +65,15 @@ Visible on hover. Usage:
 ```html
 <span class="hint" data-tooltip="hUNTun">馄饨</span>
 ```
+
+### 行内夹注 Inline Note
+
+- `inline-note`: Main class
+- `phono-term`: For Historical Chinese phonology terms like those in 麻<sub>二</sub> and 脂<sub>合</sub>, but not for notes like 去声 or 文读
+- `er`: For *er* (儿) suffix
+- `weakened`: For unt-defined weakened form (inspired from writing *er* suffix as inline note)
+
+When an article/passage uses unt-defined inline note for weakened form, both `weakened` and `er` should be given to *er* suffixes.
 
 ## Formatting Guide
 
