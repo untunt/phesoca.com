@@ -314,7 +314,8 @@ table.smaller-text td {
 	padding: 4px;
 }
 
-div.format-desc {
+div.format-desc,
+body.home .hide-on-homepage {
 	display: none;
 }
 
