@@ -517,38 +517,44 @@ fwsp:after {
 	white-space: nowrap;
 }
 
-/* tooltip */
+/* tooltip, including abbr.hint */
 .hint {
 	position: relative;
 	border-bottom: 1px dashed #686878;
 	cursor: help;
+	transition: all .35s;
 }
 
-.hint[data-tooltip]:after,
-.hint[data-tooltip]:before {
+.hint:hover {
+	transition: all .35s;
+	border-bottom-color: transparent;
+}
+
+.hint[data-title]:after,
+.hint[data-title]:before {
 	visibility: hidden;
 	position: absolute;
-	top: 50%;
-	left: 100%;
+	top: 100%;
+	left: 50%;
 	transition: all .3s;
 }
 
-.hint[data-tooltip]:after {
-	content: attr(data-tooltip);
-	transform: translate(2px, -50%);
+.hint[data-title]:after {
+	content: attr(data-title);
+	transform: translate(-50%, 1px);
 	white-space: pre;
-	padding: 5px 10px;
+	padding: 2px 8px;
 	background-color: transparent;
 	color: transparent;
 	border-radius: 4px;
 }
 
-.hint[data-tooltip]:before {
+.hint[data-title]:before {
 	content: '';
 	height: 0;
 	width: 0;
-	transform: translate(-2px, -50%);
-	border-width: 5px 5px 5px 0;
+	transform: translate(-50%, -4px);
+	border-width: 0 6px 6px 6px;
 	border-style: solid;
 	border-color: transparent;
 }
@@ -562,16 +568,12 @@ fwsp:after {
 .hint:hover:after {
 	color: #f0f4f8;
 	background-color: #1a1a1e;
-	transform: translate(6px, -50%);
+	transform: translate(-50%, 6px);
 }
 
 .hint:hover:before {
-	border-color: transparent #1a1a1e transparent transparent;
-	transform: translate(2px, -50%);
-}
-
-abbr {
-	text-decoration: none;
+	border-color: transparent transparent #1a1a1e transparent;
+	transform: translate(-50%, 0.5px);
 }
 
 #ez-toc-container {
