@@ -116,6 +116,7 @@
 }
 
 .menu-navi-container {
+	line-height: 1;
 	white-space: nowrap;
 }
 
@@ -233,8 +234,8 @@ a.note {
 }
 
 /* wavy underline
- * from http://dabblet.com/gist/f6cfd244631c8ca898ef60b100b96386
- */
+* from http://dabblet.com/gist/f6cfd244631c8ca898ef60b100b96386
+*/
 .wavy {
 	background-image:
 		linear-gradient(45deg, transparent 65%, #1a1a1e 80%, transparent 90%),
@@ -316,7 +317,7 @@ table.smaller-text td {
 
 div.format-desc,
 body.home .hide-on-homepage {
-	display: none;
+	display: none !important;
 }
 
 table.equal-col-width th,
@@ -406,9 +407,44 @@ code[class*="language-"] {
 	}
 }
 
+@media screen and (min-width: 56.875em) {
+	.wide-hori-scroll .hori-scroll {
+		width: 143%;
+	}
+}
+
+@media screen and (min-width: 44.375em) and (max-width: 56.875em) {
+	.entry-header, .post-thumbnail, .entry-content, .entry-summary, .entry-footer, .comments-area, .image-navigation, .post-navigation, .page-header, .page-content, .content-bottom-widgets {
+		margin-right: 7.6923%;
+	}
+	.wide-hori-scroll .hori-scroll {
+		width: 108%;
+	}
+}
+
+@media screen and (max-width: 44.375em) {
+	.entry-header, .entry-summary, .entry-content, .entry-footer, .page-content {
+		margin-right: 5%;
+		margin-left: 5%;
+	}
+	.wide-hori-scroll .hori-scroll {
+		width: 104%;
+	}
+}
+
+@media screen and (max-width: 34em) {
+	.entry-header, .entry-summary, .entry-content, .entry-footer, .page-content {
+		margin-right: 3%;
+		margin-left: 3%;
+	}
+	.wide-hori-scroll .hori-scroll {
+		width: 102%;
+	}
+}
+
 @media screen and (min-width: 61.5625em) {
-	body:not(.search-results) article:not(.type-page).tag-entry-content-full-width .entry-content {
-		width: 100%;
+	article.post.type-page .entry-footer>* {
+		display: inline !important;
 	}
 }
 
