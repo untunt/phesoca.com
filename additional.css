@@ -36,10 +36,6 @@
 	}
 }
 
-.site-footer .site-title:after {
-	display: none;
-}
-
 @media screen and (max-width: 56.875em) {
 	.main-navigation {
 		white-space: nowrap;
@@ -723,13 +719,13 @@ code, kbd, tt, var, samp, pre {
 	font-family: "Gill Sans", Tahoma, -apple-system, "Helvetica Neue", Helvetica, "Nimbus Sans L", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Arial, "Liberation Sans", "Meiryo", "Yu Gothic", "MS PGothic", sans-serif;
 }
 
-/* 思源黑体的中点是半角 */
 .cn {
-	font-family: "Hiragino Sans GB", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "Microsoft YaHei", "WenQuanYi Zen Hei Sharp", sans-serif;
+	font-family: "Hiragino Sans GB", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "Microsoft YaHei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
 }
 
-.cn-quot {
-	font-family: "Hiragino Sans GB", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "Microsoft YaHei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+.cn-ellipsis {
+	font-family: "Hiragino Sans GB", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "Microsoft YaHei", "WenQuanYi Zen Hei Sharp", sans-serif;
+	line-height: 1;
 }
 
 .full-width-char {

@@ -78,3 +78,61 @@ When an article/passage uses unt-defined inline note for weakened form, both `we
 ### Alphabetic Year Numbering
 
 Use `&apos;` instead of `'` for years before 2011 (e.g. `0&apos;11.21` (0'11.21) meaning Nov 21, 2010), since `'` will be converted into `’`.
+
+## PHP Modification
+
+### Cache `the_content` to save loading time
+
+```PHP
+// apply_filters()@wp-includes/plugin.php:205
+// From
+$filtered = $wp_filter[ $hook_name ]->apply_filters( $value, $args );
+// To
+static $filtered_content = '';
+if ( $hook_name == 'the_content' && $filtered_content && is_singular() && get_the_ID() != 99 ) {
+	$filtered = $filtered_content;
+} else {
+	$filtered = $wp_filter[ $hook_name ]->apply_filters( $value, $args );
+	if ( $hook_name == 'the_content' ) {
+		$filtered_content = $filtered;
+	}
+}
+
+// wp_trim_excerpt()@wp-includes/formatting.php:3974
+// Make sure the content passed into `apply_filters()` in `get_the_excerpt()` is the same as that in `the_content()`
+// From
+$text = strip_shortcodes( $text );
+$text = excerpt_remove_blocks( $text );
+$text = excerpt_remove_footnotes( $text );
+$filter_image_removed = remove_filter( 'the_content', 'wp_filter_content_tags', 12 );
+$filter_block_removed = remove_filter( 'the_content', 'do_blocks', 9 );
+// To
+if ( !is_singular() ) {
+	$text = strip_shortcodes( $text );
+	$text = excerpt_remove_blocks( $text );
+	$text = excerpt_remove_footnotes( $text );
+}
+$filter_image_removed = !is_singular() && remove_filter( 'the_content', 'wp_filter_content_tags', 12 );
+$filter_block_removed = !is_singular() && remove_filter( 'the_content', 'do_blocks', 9 );
+```
+
+### Strip text hidden on homepage for `get_the_excerpt()`
+
+```PHP
+// wp-includes/shortcodes.php:715:strip_shortcodes()
+// Insert after `apply_filters()`
+$text = preg_replace( '/<([^ >]+) [^>]*? class="hide-on-homepage">.*?\/\1>/s', '', $text );
+```
+
+### Optimize SEO time consumption
+
+```PHP
+// replace()@wp-content/plugins/wordpress-seo/inc/class-wpseo-replace-vars.php:149
+// Comment out (these seem to have no effects)
+if ( isset( $args['post_content'] ) && ! empty( $args['post_content'] ) ) {
+	$args['post_content'] = YoastSEO()->helpers->string->strip_shortcode( $args['post_content'] );
+}
+if ( isset( $args['post_excerpt'] ) && ! empty( $args['post_excerpt'] ) ) {
+	$args['post_excerpt'] = YoastSEO()->helpers->string->strip_shortcode( $args['post_excerpt'] );
+}
+```

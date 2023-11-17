@@ -102,59 +102,21 @@ function convert_note( $content ) {
 }
 add_filter( 'the_content', 'convert_note' );
 
-function add_tag_expect_slash( $content, $regex, $prefix, $suffix, $suffix_reg ) {
-	$content = preg_replace( "#($regex)#u", "$prefix$1$suffix", $content );
-	$content = preg_replace( "#\\\\$prefix($regex)$suffix_reg#u", "\\\\$1", $content );
-	return $content;
-}
-
-function add_span_expect_slash( $content, $regex, $prefix ) {
-	$suffix = '</span>';
-	$suffix_reg = '<\\/span>';
-	return add_tag_expect_slash( $content, $regex, $prefix, $suffix, $suffix_reg );
-}
-
 function chinese_punctuations( $content ) {
-	$mark_line = '…|—';
-	$mark_dot = '·';
-	$mark_quot_l = '“|‘';
-	$mark_quot_r = '”|’';
-	$mark_all = "$mark_line|$mark_dot|$mark_quot_l|$mark_quot_r";
-
-	$prefix_nobr = '<span class="non-breaking">';
-	$prefix_cn = '<span class="cn">';
-	$prefix_cn_center = '<span class="cn text-align-center">';
-	$prefix_cnquot_l = '<span class="cn-quot text-align-right">';
-	$prefix_cnquot_r = '<span class="cn-quot">';
-	$prefix_fw = '<span class="full-width-char">';
-
-	$subgrp_l = "(?:$mark_quot_l)+";
-	$subgrp_r = "(?:$mark_quot_r)+";
-	$subgrp_a  = "[^\\\\]?|\\\\(?:$mark_all)"; // expect \ and include \“
-	$subgrp_b_l = "$|[^\\\\<]|\\\\(?:$mark_all)"; // expect “<
-	$subgrp_b_r = "^|[^\\\\>]|\\\\(?:$mark_all)"; // expect >”
-
 	// add "non-breaking" around quotation marks
-	$grp = "(?:$subgrp_l)(?:$subgrp_a)(?:$subgrp_r)" // matching 0 or 1 char between quotation marks
-		. "|(?:$subgrp_l)(?:$subgrp_b_l)|(?:$subgrp_b_r)(?:$subgrp_r)"; // matching multiple chars between quotation marks
-	$content = add_span_expect_slash( $content, $grp, $prefix_nobr );
+	// 0 or 1 char between quotation marks
+	$content = preg_replace( '/(?<!\\\\)[“‘]+([^\\]|\\\\[…—·“‘’”])?[’”]+/u', '<span class="non-breaking">$0</span>', $content );
+	// multiple chars between quotation marks
+	$content = preg_replace( '/(?<!\\\\)[“‘]+([^\\<]|\\\\[…—·“‘’”])/u', '<span class="non-breaking">$0</span>', $content );
+	$content = preg_replace( '/\\\\[…—·“‘’”][’”]+/u', '<span class="non-breaking">$0</span>', $content );
+	$content = preg_replace( '/[^\\>][’”]+/u', '<span class="non-breaking">$0</span>', $content );
 
-	// add "cn" around line and dot marks
-	$grp = "(?:$mark_line)+";
-	$content = add_span_expect_slash( $content, $grp, $prefix_cn );
-	$grp = "$mark_dot";
-	$content = add_span_expect_slash( $content, $grp, $prefix_cn_center );
-
-	// add "cn" around quotation marks
-	$content = add_span_expect_slash( $content, $subgrp_l, $prefix_cnquot_l );
-	$content = add_span_expect_slash( $content, $subgrp_r, $prefix_cnquot_r );
-
-	// add "full-width-char" around dot and quotation marks
-	$grp = "$mark_dot|$mark_quot_l|$mark_quot_r";
-	$content = add_span_expect_slash( $content, $grp, $prefix_fw );
-
-	// keep non-Chinese style
-	$content = preg_replace( "#\\\\($mark_all)#", "$1", $content );
+	$content = preg_replace( '/(?<!\\\\)…+/u', '<span class="cn-ellipsis">$0</span>', $content );
+	$content = preg_replace( '/(?<!\\\\)(—+|[·“‘’”])/u', '<span class="cn">$0</span>', $content );
+	$content = preg_replace( '/(?<!\\\\)·/u', '<span class="full-width-char text-align-center">$0</span>', $content );
+	$content = preg_replace( '/(?<!\\\\)[“‘]/u', '<span class="full-width-char text-align-right">$0</span>', $content );
+	$content = preg_replace( '/(?<!\\\\)[’”]/u', '<span class="full-width-char">$0</span>', $content );
+	$content = preg_replace( '/\\\\(?=[…—·“‘’”])/u', '', $content );
 	return $content;
 }
 add_filter( 'the_content', 'chinese_punctuations' );
@@ -166,15 +128,16 @@ function replace_empty_p( $content ) {
 }
 add_filter( 'the_content', 'replace_empty_p' );
 
-function remove_anchors_in_homepage_content( $content ) {
+function modify_content_on_homepage( $content ) {
 	if ( !is_home() ) {
 		return $content;
 	}
 	$content = preg_replace('|<a[^>]*href ?= ?"#[^"]*"[^>]* (class ?= ?"[^"]*")[^>]*>(((?!/a>).)*)</a>|i', '<span $1>$2</span>', $content); // keep style
 	$content = preg_replace('|<a[^>]*href ?= ?"#[^"]*"[^>]*>(((?!/a>).)*)</a>|i', '$1', $content);
+	$content = preg_replace( '/<([^ >]+) [^>]*? class="hide-on-homepage">.*?\/\1>/s', '', $content );
 	return $content;
 }
-add_filter( 'the_content', 'remove_anchors_in_homepage_content' );
+add_filter( 'the_content', 'modify_content_on_homepage' );
 
 function text_autospace() {
 	// text-autospace.js is downloaded in wp-content/plugins/
