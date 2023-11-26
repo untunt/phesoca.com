@@ -104,12 +104,12 @@ add_filter( 'the_content', 'convert_note' );
 
 function chinese_punctuations( $content ) {
 	// add "non-breaking" around quotation marks
-	// 0 or 1 char between quotation marks
-	$content = preg_replace( '/(?<!\\\\)[“‘]+([^\\]|\\\\[…—·“‘’”])?[’”]+/u', '<span class="non-breaking">$0</span>', $content );
-	// multiple chars between quotation marks
-	$content = preg_replace( '/(?<!\\\\)[“‘]+([^\\<]|\\\\[…—·“‘’”])/u', '<span class="non-breaking">$0</span>', $content );
-	$content = preg_replace( '/\\\\[…—·“‘’”][’”]+/u', '<span class="non-breaking">$0</span>', $content );
-	$content = preg_replace( '/[^\\>][’”]+/u', '<span class="non-breaking">$0</span>', $content );
+	$content = preg_replace(
+		// 0 or 1 char between quotation marks
+		'/(?<!\\\\)[“‘]+([^\\\\]|\\\\[…—·“‘’”])?[’”]+|' .
+		// multiple chars between quotation marks
+		'(?<!\\\\)[“‘]+([^\\\\<]|\\\\[…—·“‘’”])|' .
+		'\\\\[…—·“‘’”][’”]+|[^\\\\>][’”]+/u', '<span class="non-breaking">$0</span>', $content );
 
 	$content = preg_replace( '/(?<!\\\\)…+/u', '<span class="cn-ellipsis">$0</span>', $content );
 	$content = preg_replace( '/(?<!\\\\)(—+|[·“‘’”])/u', '<span class="cn">$0</span>', $content );
