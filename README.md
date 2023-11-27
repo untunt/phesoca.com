@@ -6,8 +6,9 @@ Modified files (php, css, etc.) from WordPress's “Twenty Sixteen” theme for 
 
 |Filename|Path|
 |-|-|
-|additional.css|[“Additional CSS” in “Customize”]|
-|functions.php|wp-content/themes/twentysixteen/functions.php<br>[only supplement at the end of the file]|
+|[additional.css](additional.css)|[“Additional CSS” in “Customize”]|
+|[functions.php](functions.php)|wp-content/themes/twentysixteen/functions.php<br>[only supplement at the end of the file]|
+|[create-templates.py](create-templates.py)|wp-content/themes/twentysixteen/<br>(run here)|
 
 ## Features
 
