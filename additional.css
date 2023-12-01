@@ -557,6 +557,10 @@ fwsp:after {
 	white-space: nowrap;
 }
 
+.post-navigation .post-title * {
+	display: inline;
+}
+
 /* tooltip, including abbr.hint */
 .hint {
 	position: relative;
