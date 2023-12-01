@@ -82,7 +82,9 @@ Use `&apos;` instead of `'` for years before 2011 (e.g. `0&apos;11.21` (0'11.21)
 
 ## PHP Modification
 
-### Cache `the_content` to save loading time
+### Cache `the_content` to save loading time (unused)
+
+Note: This is temporarily (maybe permenantly) abandoned since it will disable adding TOC anchors during generating the content.
 
 ```PHP
 // apply_filters()@wp-includes/plugin.php:205
@@ -115,25 +117,4 @@ if ( !is_singular() ) {
 }
 $filter_image_removed = !is_singular() && remove_filter( 'the_content', 'wp_filter_content_tags', 12 );
 $filter_block_removed = !is_singular() && remove_filter( 'the_content', 'do_blocks', 9 );
-```
-
-### Strip text hidden on homepage for `get_the_excerpt()`
-
-```PHP
-// wp-includes/shortcodes.php:715:strip_shortcodes()
-// Insert after `apply_filters()`
-$text = preg_replace( '/<([^ >]+) [^>]*? class="hide-on-homepage">.*?\/\1>/s', '', $text );
-```
-
-### Optimize SEO time consumption
-
-```PHP
-// replace()@wp-content/plugins/wordpress-seo/inc/class-wpseo-replace-vars.php:149
-// Comment out (these seem to have no effects)
-if ( isset( $args['post_content'] ) && ! empty( $args['post_content'] ) ) {
-	$args['post_content'] = YoastSEO()->helpers->string->strip_shortcode( $args['post_content'] );
-}
-if ( isset( $args['post_excerpt'] ) && ! empty( $args['post_excerpt'] ) ) {
-	$args['post_excerpt'] = YoastSEO()->helpers->string->strip_shortcode( $args['post_excerpt'] );
-}
 ```

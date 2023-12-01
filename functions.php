@@ -129,7 +129,7 @@ function replace_empty_p( $content ) {
 add_filter( 'the_content', 'replace_empty_p' );
 
 function modify_content_on_homepage( $content ) {
-	if ( !is_home() ) {
+	if ( is_singular() ) {
 		return $content;
 	}
 	$content = preg_replace('|<a[^>]*href ?= ?"#[^"]*"[^>]* (class ?= ?"[^"]*")[^>]*>(((?!/a>).)*)</a>|i', '<span $1>$2</span>', $content); // keep style
