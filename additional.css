@@ -597,6 +597,10 @@ fwsp:after {
 	border-radius: 4px;
 }
 
+.hint[data-title].tooltip-further-away:after {
+	transform: translate(-50%, 4px);
+}
+
 .hint[data-title]:before {
 	content: '';
 	height: 0;
@@ -605,6 +609,10 @@ fwsp:after {
 	border-width: 0 6px 6px 6px;
 	border-style: solid;
 	border-color: transparent;
+}
+
+.hint[data-title].tooltip-further-away:before {
+	transform: translate(-50%, 0px);
 }
 
 .hint:hover:after,
@@ -619,9 +627,17 @@ fwsp:after {
 	transform: translate(-50%, 6px);
 }
 
+.hint.tooltip-further-away:hover:after {
+	transform: translate(-50%, 10px);
+}
+
 .hint:hover:before {
 	border-color: transparent transparent #1a1a1e transparent;
 	transform: translate(-50%, 0.5px);
+}
+
+.hint.tooltip-further-away:hover:before {
+	transform: translate(-50%, 4.5px);
 }
 
 #ez-toc-container {

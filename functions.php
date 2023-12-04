@@ -221,3 +221,11 @@ remove_action( 'embed_head', 'print_emoji_detection_script' );
 remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
 remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
 remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+
+function modify_post_link( $post_link, $post ) {
+	if ( $post->ID == 1220 ) return 'https://phesoca.com/rime-table/';
+	if ( $post->ID == 1272 ) return get_permalink( 1233 ); // kanbun-html
+	if ( $post->ID == 1358 ) return get_permalink( 1310 ); // tupa
+	return $post_link;
+}
+add_filter( 'post_link', 'modify_post_link', 100, 2 );
