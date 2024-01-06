@@ -128,6 +128,13 @@ function replace_empty_p( $content ) {
 }
 add_filter( 'the_content', 'replace_empty_p' );
 
+function replace_script_only_p( $content ) {
+	$content = str_replace('<p><script>', '<script>', $content);
+	$content = str_replace('</script></p>', '</script>', $content);
+	return $content;
+}
+add_filter( 'the_content', 'replace_script_only_p' );
+
 function modify_content_on_homepage( $content ) {
 	if ( is_singular() ) {
 		return $content;
@@ -194,6 +201,7 @@ add_filter( 'the_title', 'replace_to_en_space' );
 function replace_to_hanla( $content ) {
 	$content = str_replace( '&hl;', '<hanla></hanla>', $content );
 	$content = str_replace( '&hlsp;', '<hanla> </hanla>', $content );
+	$content = str_replace( '&nohl;', '<span style="display:none"> </span>', $content );
 	return $content;
 }
 add_action( 'the_content', 'replace_to_hanla' );
