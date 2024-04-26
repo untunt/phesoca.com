@@ -525,6 +525,11 @@ blockquote b {
 	font-weight: 700;
 }
 
+/* reset summary */
+details > summary:first-of-type {
+	display: list-item;
+}
+
 .katex {
 	font-size: 1em !important;
 }
