@@ -258,11 +258,11 @@ article p {
 }
 
 body.content-only header {
-    padding-bottom: 0;
+	padding-bottom: 0;
 }
 
 body.content-only main {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 /* automatically add space between Chinese characters and Latin alphabets */
@@ -448,7 +448,7 @@ code[class*="language-"] {
 }
 
 @media screen and (min-width: 61.5625em) {
-	article.post.type-page .entry-footer>* {
+	article.post.type-page .entry-footer > * {
 		display: inline !important;
 	}
 }
@@ -525,9 +525,48 @@ blockquote b {
 	font-weight: 700;
 }
 
-/* reset summary */
+/* summary */
 details > summary:first-of-type {
-	display: list-item;
+	display: block;
+	cursor: pointer;
+}
+
+details > summary:first-of-type:not(.marker-after) {
+	margin-left: -1.3em;
+}
+
+details > summary:first-of-type:hover {
+	color: #686878;
+}
+
+details > summary:first-of-type::before,
+details > summary:first-of-type::after {
+	content: "▶";
+	transition: transform 0.3s, opacity 0.2s 0.1s;
+	display: inline-block;
+	width: 1.3em;
+	text-align: center;
+}
+
+details[open] > summary:first-of-type::before,
+details[open] > summary:first-of-type::after {
+	transition: transform 0.3s, opacity 0.1s;
+	transform: rotate(90deg) translate(0.1em, 0.05em);
+}
+
+details:not([open]) > summary:first-of-type.marker-trans::before,
+details:not([open]) > summary:first-of-type.marker-trans::after {
+    opacity: 0;
+}
+
+details > summary:first-of-type::after {
+	margin-left: 0.2em;
+}
+
+details > summary::-webkit-details-marker,
+details > summary:first-of-type.marker-after::before,
+details > summary:first-of-type:not(.marker-after)::after {
+	display: none;
 }
 
 .katex {
