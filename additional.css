@@ -116,6 +116,12 @@
 	white-space: nowrap;
 }
 
+.site-footer .site-title::before,
+.site-footer .site-title::after,
+.site-footer .imprint {
+	display: none;
+}
+
 /* widget */
 .widget {
 	margin-bottom: 2em;
@@ -171,13 +177,13 @@ a.anchor {
 	user-select: none;
 }
 
-.footnotes .note-block:not(:first-child):before,
-.references .note-block:not(:first-child):before {
+.footnotes .note-block:not(:first-child)::before,
+.references .note-block:not(:first-child)::before {
 	content: "\A0\20";
 }
 
-.footnotes .note-block + [hidden] + .note-block:not(:first-child):before,
-.references .note-block + [hidden] + .note-block:not(:first-child):before {
+.footnotes .note-block + [hidden] + .note-block:not(:first-child)::before,
+.references .note-block + [hidden] + .note-block:not(:first-child)::before {
 	font-size: 50%;
 }
 
@@ -186,8 +192,8 @@ a.anchor {
 	display: none;
 }
 
-.footnotes .note-block:not(:first-child) .note-suffix:after,
-.references .note-block:not(:first-child) .note-suffix:after {
+.footnotes .note-block:not(:first-child) .note-suffix::after,
+.references .note-block:not(:first-child) .note-suffix::after {
 	content: '↩︎';
 	font-size: 92%;
 	top: -.05em;
@@ -266,7 +272,7 @@ body.content-only main {
 }
 
 /* automatically add space between Chinese characters and Latin alphabets */
-hanla:after {
+hanla::after {
 	content: " ";
 	display: inline;
 }
@@ -509,8 +515,8 @@ blockquote small {
 	line-height: inherit;
 }
 
-blockquote cite:before,
-blockquote small:before {
+blockquote cite::before,
+blockquote small::before {
 	content: none;
 }
 
@@ -594,7 +600,7 @@ details > summary:first-of-type:not(.marker-after)::after {
 	text-indent: 0;
 }
 
-fwsp:after {
+fwsp::after {
 	content: "\3000";
 }
 
@@ -622,8 +628,8 @@ fwsp:after {
 	border-bottom-color: transparent;
 }
 
-.hint[data-title]:after,
-.hint[data-title]:before {
+.hint[data-title]::after,
+.hint[data-title]::before {
 	visibility: hidden;
 	position: absolute;
 	top: 100%;
@@ -632,7 +638,7 @@ fwsp:after {
 	z-index: 10000;
 }
 
-.hint[data-title]:after {
+.hint[data-title]::after {
 	content: attr(data-title);
 	transform: translate(-50%, 1px);
 	white-space: pre;
@@ -642,11 +648,11 @@ fwsp:after {
 	border-radius: 4px;
 }
 
-.hint[data-title].tooltip-further-away:after {
+.hint[data-title].tooltip-further-away::after {
 	transform: translate(-50%, 4px);
 }
 
-.hint[data-title]:before {
+.hint[data-title]::before {
 	content: '';
 	height: 0;
 	width: 0;
@@ -656,32 +662,32 @@ fwsp:after {
 	border-color: transparent;
 }
 
-.hint[data-title].tooltip-further-away:before {
+.hint[data-title].tooltip-further-away::before {
 	transform: translate(-50%, 0px);
 }
 
-.hint:hover:after,
-.hint:hover:before {
+.hint:hover::after,
+.hint:hover::before {
 	transition: all .3s;
 	visibility: visible;
 }
 
-.hint:hover:after {
+.hint:hover::after {
 	color: #f0f4f8;
 	background-color: #1a1a1e;
 	transform: translate(-50%, 6px);
 }
 
-.hint.tooltip-further-away:hover:after {
+.hint.tooltip-further-away:hover::after {
 	transform: translate(-50%, 10px);
 }
 
-.hint:hover:before {
+.hint:hover::before {
 	border-color: transparent transparent #1a1a1e transparent;
 	transform: translate(-50%, 0.5px);
 }
 
-.hint.tooltip-further-away:hover:before {
+.hint.tooltip-further-away:hover::before {
 	transform: translate(-50%, 4.5px);
 }
 
@@ -768,7 +774,7 @@ input[type="submit"][disabled]:focus,
 /* originally: "Open Sans", sans-serif */
 .logged-in .site .skip-link,
 /* originally: Montserrat, sans-serif */
-.site-footer .site-title:after,
+.site-footer .site-title::after,
 .site-footer span[role=separator],
 text {
 	font-family: "Gill Sans", Tahoma, -apple-system, "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
