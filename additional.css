@@ -308,22 +308,7 @@ table {
 	/* previous setting: fixed */
 	table-layout: auto;
 	line-height: 1.4;
-}
-
-table.compact th,
-table.compact td {
-	line-height: 1.3;
-	padding: 0.375em;
-}
-
-table.smaller-text {
-	font-size: 12px;
-	line-height: 16px;
-}
-
-table.smaller-text th,
-table.smaller-text td {
-	padding: 4px;
+	--cols: 10;
 }
 
 div.format-desc,
@@ -331,18 +316,50 @@ body.home .hide-on-homepage {
 	display: none !important;
 }
 
-table.equal-col-width th,
-table.equal-col-width td,
-div.table.equal-col-width + table th,
-div.table.equal-col-width + table td {
-	width: 10%;
+div.table.hori-scroll + table {
+	overflow-x: auto;
+	display: block;
+	white-space: nowrap;
+	max-width: max-content;
+	margin-left: auto;
+	margin-right: auto;
+	border-left-width: 0;
+	padding-right: 1px;
 }
 
-table.head-hidden thead,
-table.head-hidden th,
+div.table.hori-scroll + table th:first-of-type,
+div.table.hori-scroll + table td:first-of-type {
+	border-left-width: 1px;
+}
+
+div.table.has-2-cols + table { --cols: 2; }
+div.table.has-3-cols + table { --cols: 3; }
+div.table.has-4-cols + table { --cols: 4; }
+div.table.has-5-cols + table { --cols: 5; }
+div.table.has-6-cols + table { --cols: 6; }
+div.table.has-7-cols + table { --cols: 7; }
+div.table.has-8-cols + table { --cols: 8; }
+div.table.has-9-cols + table { --cols: 9; }
+div.table.has-10-cols + table { --cols: 10; }
+div.table.has-11-cols + table { --cols: 11; }
+div.table.has-12-cols + table { --cols: 12; }
+div.table.has-13-cols + table { --cols: 13; }
+div.table.has-14-cols + table { --cols: 14; }
+div.table.has-15-cols + table { --cols: 15; }
+div.table.has-16-cols + table { --cols: 16; }
+
+div.table.equal-col-width + table th,
+div.table.equal-col-width + table td {
+	width: calc(100% / var(--cols));
+}
+
 div.table.head-hidden + table thead,
 div.table.head-hidden + table th {
 	display: none;
+}
+
+div.table.has-header-col + table td:first-of-type {
+	font-weight: 700;
 }
 
 caption,
@@ -562,7 +579,7 @@ details[open] > summary:first-of-type::after {
 
 details:not([open]) > summary:first-of-type.marker-trans::before,
 details:not([open]) > summary:first-of-type.marker-trans::after {
-    opacity: 0;
+	opacity: 0;
 }
 
 details > summary:first-of-type::after {
