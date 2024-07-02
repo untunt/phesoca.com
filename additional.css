@@ -2,6 +2,7 @@
 .site-branding {
 	margin: 0 auto 0 0;
 	display: grid;
+	min-width: max-content;
 }
 
 .site-branding .custom-logo-link {
@@ -36,7 +37,10 @@
 	}
 }
 
-@media screen and (max-width: 56.875em) {
+@media screen and (max-width: 64em) {
+	.site-header-menu {
+		width: 100%
+	}
 	.main-navigation {
 		white-space: nowrap;
 		text-align: center;
@@ -45,6 +49,7 @@
 		border-image: -webkit-linear-gradient(90deg, rgba(26,26,30,.15), rgba(66,144,177,.5), rgba(26,26,30,.15)) 1;
 		border-image: -moz-linear-gradient(90deg, rgba(26,26,30,.15), rgba(66,144,177,.5), rgba(26,26,30,.15)) 1;
 		border-image: linear-gradient(90deg, rgba(26,26,30,.15), rgba(66,144,177,.5), rgba(26,26,30,.15)) 1;
+		margin: 0;
 	}
 	.main-navigation .menu-navi-container {
 		display: inline-block;
@@ -82,7 +87,7 @@
 	}
 }
 
-@media screen and (min-width: 36em) {
+@media screen and (min-width: 40em) {
 	.main-navigation .menu-navi-container {
 		max-width: 100%;
 		border: 0;
@@ -97,9 +102,15 @@
 	}
 }
 
-@media screen and (min-width: 40em) and (max-width: 56.875em) {
+@media screen and (min-width: 48em) and (max-width: 64em) {
 	.main-navigation a {
 		padding: 0.1em 0.8em;
+	}
+}
+
+@media screen and (min-width: 56.875em) and (max-width: 64em) {
+	.main-navigation a {
+		padding: 0.1em 1.2em;
 	}
 }
 
@@ -209,6 +220,10 @@ a.anchor {
 .pnote .note sup,
 .pnote-home .note sup {
 	top: -.375em;
+}
+
+.pnote-home .note {
+	display: none;
 }
 
 .pnote:hover {
@@ -377,6 +392,12 @@ figcaption,
 
 figure .figure {
 	text-align: center;
+}
+
+figure img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .music-notation figcaption,
