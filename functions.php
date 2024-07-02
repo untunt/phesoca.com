@@ -237,3 +237,19 @@ function modify_post_link( $post_link, $post ) {
 	return $post_link;
 }
 add_filter( 'post_link', 'modify_post_link', 100, 2 );
+
+function get_cravatar_url( $url ) {
+	$sources = array(
+		'www.gravatar.com',
+		'0.gravatar.com',
+		'1.gravatar.com',
+		'2.gravatar.com',
+		'secure.gravatar.com',
+		'cn.gravatar.com',
+		'gravatar.com',
+	);
+	return str_replace( $sources, 'cravatar.cn', $url );
+}
+add_filter( 'um_user_avatar_url_filter', 'get_cravatar_url', 1 );
+add_filter( 'bp_gravatar_url', 'get_cravatar_url', 1 );
+add_filter( 'get_avatar_url', 'get_cravatar_url', 1 );
