@@ -854,3 +854,11 @@ code, kbd, tt, var, samp, pre {
 	width: 1em;
 	text-indent: 0;
 }
+
+.phags-pa {
+	writing-mode: vertical-lr;
+	font-family: "BabelStone Phags-pa Book";
+	vertical-align: middle;
+	min-height: 1.1em;
+	line-height: 1.1;
+}
