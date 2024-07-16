@@ -211,8 +211,8 @@ a.anchor {
 	position: relative;
 }
 
-.pnote .note,
-.pnote-home .note {
+.pnote .note:not(sup),
+.pnote-home .note:not(sup) {
 	top: -.125em;
 	position: relative;
 }
@@ -246,7 +246,8 @@ blockquote .pnote .annotated:hover ~ sup {
 	color: #686878;
 }
 
-a.note {
+a.note,
+.note a {
 	box-shadow: none;
 }
 
