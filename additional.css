@@ -571,6 +571,10 @@ blockquote b {
 }
 
 /* summary */
+details {
+	margin-bottom: 1.64em;
+}
+
 details > summary:first-of-type {
 	display: block;
 	cursor: pointer;
